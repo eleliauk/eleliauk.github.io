@@ -16,17 +16,19 @@
   <meta name="author" content="Shanyujia">
   <meta name="keywords" content="">
   
-    <meta name="description" content="自定义React Hooks1.为什么会出现hooks这个东西捏 :question:刚看hooks 就出现了这个问题 hooks出现的意义在哪里呢 hooks能解决什么问题 React中组件有两种写法 一种类组件 一种函数组件 但是函数组件相对于类组件来说有一个小小滴缺点  就是没有state :pensive: 所以hooks就应运而生勒:grinning: hooks是一类特殊的函数 允许在">
+    <meta name="description" content="浅浅学习一手自定义hooks喽">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义React hooks">
 <meta property="og:url" content="http://example.com/2024/03/08/%E8%87%AA%E5%AE%9A%E4%B9%89React%20Hooks/index.html">
 <meta property="og:site_name" content="Shanyujia&#39;s Blog">
-<meta property="og:description" content="自定义React Hooks1.为什么会出现hooks这个东西捏 :question:刚看hooks 就出现了这个问题 hooks出现的意义在哪里呢 hooks能解决什么问题 React中组件有两种写法 一种类组件 一种函数组件 但是函数组件相对于类组件来说有一个小小滴缺点  就是没有state :pensive: 所以hooks就应运而生勒:grinning: hooks是一类特殊的函数 允许在">
+<meta property="og:description" content="浅浅学习一手自定义hooks喽">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/pages_img.png">
 <meta property="article:published_time" content="2024-03-07T18:24:34.000Z">
-<meta property="article:modified_time" content="2024-03-08T16:24:28.824Z">
+<meta property="article:modified_time" content="2024-03-15T08:48:21.396Z">
 <meta property="article:author" content="Shanyujia">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/pages_img.png">
   
   
   
@@ -94,7 +96,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>Shanyujia&#39;s blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -114,7 +116,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>主页</span>
               </a>
             </li>
           
@@ -126,7 +128,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>历史</span>
               </a>
             </li>
           
@@ -138,7 +140,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -150,7 +152,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -162,7 +164,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -190,7 +192,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/pages_img.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -230,7 +232,7 @@
         
         
         
-          12 mins
+          11 mins
         
       </span>
     
@@ -272,61 +274,56 @@
             
               <div class="markdown-body">
                 
-                <h1 id="自定义React-Hooks"><a href="#自定义React-Hooks" class="headerlink" title="自定义React Hooks"></a>自定义<code>React Hooks</code></h1><h3 id="1-为什么会出现hooks这个东西捏-question"><a href="#1-为什么会出现hooks这个东西捏-question" class="headerlink" title="1.为什么会出现hooks这个东西捏 :question:"></a>1.为什么会出现<code>hooks</code>这个东西捏 :question:</h3><p>刚看<code>hooks</code> 就出现了这个问题 <code>hooks</code>出现的意义在哪里呢</p>
+                <h1>自定义<code>React Hooks</code></h1>
+<h3 id="1-为什么会出现hooks这个东西捏-❓">1.为什么会出现<code>hooks</code>这个东西捏 ❓</h3>
+<p>刚看<code>hooks</code> 就出现了这个问题 <code>hooks</code>出现的意义在哪里呢</p>
 <p><code>hooks</code>能解决什么问题</p>
 <p><code>React</code>中组件有两种写法 一种类组件 一种函数组件</p>
-<p>但是函数组件相对于类组件来说有一个小小滴缺点  就是没有<code>state</code> :pensive:</p>
-<p>所以<code>hooks</code>就应运而生勒:grinning:</p>
-<p><code>hooks</code>是一类特殊的函数 允许在React的函数式组件中”钩入”状态,生命周期等其他<code>React</code>的特性</p>
-<p>提供了一种无需类组件的方式,使得现在在函数式组件中可以使用像 <code>this.state</code>,<code>this.props</code>的概念勒:cactus:</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="2-那hooks都这么厉害了-为什么还要有自定义的hooks捏-grey-question"><a href="#2-那hooks都这么厉害了-为什么还要有自定义的hooks捏-grey-question" class="headerlink" title="2.那hooks都这么厉害了 为什么还要有自定义的hooks捏:grey_question:"></a>2.那<code>hooks</code>都这么厉害了 为什么还要有自定义的<code>hooks</code>捏:grey_question:</h3><p>正常的<code>useState</code>接受两个参数</p>
+<p>但是函数组件相对于类组件来说有一个小小滴缺点  就是没有<code>state</code> 😔</p>
+<p>所以<code>hooks</code>就应运而生勒😀</p>
+<p><code>hooks</code>是一类特殊的函数 允许在React的函数式组件中&quot;钩入&quot;状态,生命周期等其他<code>React</code>的特性</p>
+<p>提供了一种无需类组件的方式,使得现在在函数式组件中可以使用像 <code>this.state</code>,<code>this.props</code>的概念勒🌵</p>
+<h3 id=""></h3>
+<h3 id="2-那hooks都这么厉害了-为什么还要有自定义的hooks捏❔">2.那<code>hooks</code>都这么厉害了 为什么还要有自定义的<code>hooks</code>捏❔</h3>
+<p>正常的<code>useState</code>接受两个参数</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> [state,setState]=<span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
-
-
 <p>正常在类组件中<code>setState</code>会支持两个参数: 一个是更新后的<code>state</code>或者回调式更新的<code>state</code> 另一个参数是更新后的回调函数</p>
-<p><code>tips</code>:什么是回调函数:sweat:</p>
+<p><code>tips</code>:什么是回调函数😓</p>
 <p>回调 (callback) 是<strong>作为参数传递给另一个函数的函数</strong> ,并在被调用函数执行完毕后被调用</p>
 <p>个人的小理解: 回调函数就是先定义了<code>functionA</code>然后再定义了<code>functionB</code></p>
 <p>但是在使用时候先用了<code>functionB</code> 并且把<code>functionA</code>当成了参数给了<code>functionB</code></p>
 <p><code>useState</code> hook并不直接支持像类组件中的<code>setState</code>方法那样可以接收第二个参数作为回调函数。<code>useState</code> hook返回的更新函数只能用于更新状态，并且不会提供回调函数的选项</p>
 <p>所以自定义<code>hooks</code>就出现啦</p>
-<h3 id="3-来自定义useState吧-sake"><a href="#3-来自定义useState吧-sake" class="headerlink" title="3.来自定义useState吧:sake:"></a>3.来自定义<code>useState</code>吧:sake:</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">useStatePro</span> =(<span class="hljs-params">initState</span>)=&gt;&#123;<br>    <span class="hljs-keyword">const</span> [state,setState]=<span class="hljs-title function_">useState</span>(initState);<br>    <span class="hljs-comment">//存储一手回调函数</span><br>    <span class="hljs-keyword">const</span> isUpdate=<span class="hljs-title function_">useRef</span>()<br>    <span class="hljs-comment">//定义一个新函数喽 (接受一个新状态和一个回调函数)</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">setStatePro</span> =(<span class="hljs-params">newState,cb</span>)=&gt;&#123;<br>        <span class="hljs-comment">//使用setState更新状态 把回调函数储存在current里 </span><br>        <span class="hljs-comment">//如果newState是个函数的情况下 就计算新状态 </span><br>        <span class="hljs-title function_">setState</span>(<br>        <span class="hljs-function"><span class="hljs-params">prev</span>=&gt;</span>&#123;<br>            isUpdate.<span class="hljs-property">current</span>=cb<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> newState=<span class="hljs-string">&#x27;function&#x27;</span> ? <span class="hljs-title function_">newState</span>(prev):newState<br>        &#125;<br>        )<br>    &#125;<br>    <span class="hljs-comment">//检查一下current有无回调函数 有就直接执行</span><br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-keyword">if</span>(isUpdate.<span class="hljs-property">current</span>)<br>            &#123;<br>				<span class="hljs-keyword">return</span> isUpdate.<span class="hljs-title function_">current</span>()<br>            &#125;<br>    &#125;)<br>    <span class="hljs-keyword">return</span> [state,useStatePro]<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<h3 id="3-来自定义useState吧🍶">3.来自定义<code>useState</code>吧🍶</h3>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">useStatePro</span> =(<span class="hljs-params">initState</span>)=&gt;&#123;<br>    <span class="hljs-keyword">const</span> [state,setState]=<span class="hljs-title function_">useState</span>(initState);<br>    <span class="hljs-comment">//存储一手回调函数</span><br>    <span class="hljs-keyword">const</span> isUpdate=<span class="hljs-title function_">useRef</span>()<br>    <span class="hljs-comment">//定义一个新函数喽 (接受一个新状态和一个回调函数)</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">setStatePro</span> =(<span class="hljs-params">newState,cb</span>)=&gt;&#123;<br>        <span class="hljs-comment">//使用setState更新状态 把回调函数储存在current里 </span><br>        <span class="hljs-comment">//如果newState是个函数的情况下 就计算新状态 </span><br>        <span class="hljs-title function_">setState</span>(<br>        <span class="hljs-function"><span class="hljs-params">prev</span>=&gt;</span>&#123;<br>            isUpdate.<span class="hljs-property">current</span>=cb<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> newState=<span class="hljs-string">&#x27;function&#x27;</span> ? <span class="hljs-title function_">newState</span>(prev):newState<br>        &#125;<br>        )<br>    &#125;<br>    <span class="hljs-comment">//检查一下current有无回调函数 有就直接执行</span><br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-keyword">if</span>(isUpdate.<span class="hljs-property">current</span>)<br>            &#123;<br>				<span class="hljs-keyword">return</span> isUpdate.<span class="hljs-title function_">current</span>()<br>            &#125;<br>    &#125;)<br>    <span class="hljs-keyword">return</span> [state,useStatePro]<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>这样就实现了<code>useState</code>的功能 但是多了一个在状态更新后执行回调函数的功能</p>
-<h3 id="4-自定义一个更新函数useUpdate"><a href="#4-自定义一个更新函数useUpdate" class="headerlink" title="4.自定义一个更新函数useUpdate"></a>4.自定义一个更新函数<code>useUpdate</code></h3><p>如果正常使用<code>hooks</code>想让组件重新渲染 一般是要更新state的 </p>
-<p>但是有的时候可能一个state掌握着好几个组件的生死大权:imp:</p>
+<h3 id="4-自定义一个更新函数useUpdate">4.自定义一个更新函数<code>useUpdate</code></h3>
+<p>如果正常使用<code>hooks</code>想让组件重新渲染 一般是要更新state的</p>
+<p>但是有的时候可能一个state掌握着好几个组件的生死大权😈</p>
 <p>不能就为了一个小小的组件就让state作出无意义的更新</p>
 <p>这时候可以想想能不能定义一个更新的<code>hooks</code>来优雅一些实现组件的强制更新</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">Update</span>=(<span class="hljs-params"></span>)=&gt;&#123;<br>    <span class="hljs-keyword">const</span> [,setFlag]=<span class="hljs-title function_">useState</span>()<br>    <span class="hljs-keyword">const</span> <span class="hljs-title function_">update</span>=(<span class="hljs-params"></span>)=&gt;&#123;<br>        <span class="hljs-comment">//更新一手时间</span><br>        <span class="hljs-title function_">setFlag</span>(<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>())<br>    &#125;<br>    <span class="hljs-keyword">return</span> update<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>发现这个函数返回了一个函数 这个函数就是用来强制更新的</p>
-<p>咋使用他捏:nail_care:</p>
+<p>咋使用他捏💅</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">Time</span>=(<span class="hljs-params"></span>)=&gt;&#123;<br>    <span class="hljs-keyword">const</span> update=<span class="hljs-title function_">useUpdate</span>();<br>    <span class="hljs-keyword">return</span>(<br>        &#123;<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()&#125;<br>   		 &lt;div&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onCLick</span>=<span class="hljs-string">&#123;update&#125;</span>&gt;</span>更新喽<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>&lt;/div&gt;<br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="5-自定义hooks实现redux"><a href="#5-自定义hooks实现redux" class="headerlink" title="5.自定义hooks实现redux"></a>5.自定义hooks实现<code>redux</code></h3><p><code>Redux</code>目前来说还是常用的管理状态的工具 但是<code>Redux</code>需要遵守的规则和步骤有点小多:rage:</p>
+<h3 id="5-自定义hooks实现redux">5.自定义hooks实现<code>redux</code></h3>
+<p><code>Redux</code>目前来说还是常用的管理状态的工具 但是<code>Redux</code>需要遵守的规则和步骤有点小多😡</p>
 <p>所以来制作一个属于自己的<code>Redux</code></p>
-<h4 id="1-首先先把应用接口做好"><a href="#1-首先先把应用接口做好" class="headerlink" title="1.首先先把应用接口做好"></a>1.首先先把应用接口做好</h4><p>在顶部引入<code>Provider</code>组件为所有的儿孙组件提供所有数据源<code>store</code></p>
+<h4 id="1-首先先把应用接口做好">1.首先先把应用接口做好</h4>
+<p>在顶部引入<code>Provider</code>组件为所有的儿孙组件提供所有数据源<code>store</code></p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactDOM</span>, &#123;render&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/App&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Provider</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./store/provider&#x27;</span><br><span class="hljs-comment">// 挂载节点</span><br><span class="hljs-title function_">render</span>((<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">App</span>/&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span><br>), <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;app&#x27;</span>)<br>)<br></code></pre></td></tr></table></figure>
-
-<h4 id="2-然后就可以开始设计store啦-happy"><a href="#2-然后就可以开始设计store啦-happy" class="headerlink" title="2.然后就可以开始设计store啦:happy:"></a>2.然后就可以开始设计<code>store</code>啦:happy:</h4><p>首先就是数据项 </p>
+<h4 id="2-然后就可以开始设计store啦-happy">2.然后就可以开始设计<code>store</code>啦:happy:</h4>
+<p>首先就是数据项</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">//初始化数据</span><br><span class="hljs-keyword">const</span> initState=&#123;<br> <span class="hljs-attr">count</span>:<span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">//reducer 处理器</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">reducer</span> =(<span class="hljs-params">state,action</span>)=&gt;&#123;<br>    <span class="hljs-keyword">const</span>&#123;type,payload&#125;=action<br>    <span class="hljs-keyword">switch</span>(type)&#123;<br>            <span class="hljs-keyword">case</span><span class="hljs-string">&#x27;ADD_COUNT&#x27;</span>:<span class="hljs-keyword">return</span>&#123;...state ,<span class="hljs-attr">count</span>:state.<span class="hljs-property">count</span>+<span class="hljs-number">1</span>&#125;<br>            <span class="hljs-keyword">default</span> : <span class="hljs-keyword">return</span> state;<br>    &#125;<br>&#125;<span class="hljs-comment">// 创建上下文</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Context</span> = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createContext</span>()<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Provider</span> = (<span class="hljs-params">props</span>) =&gt; &#123;<br><span class="hljs-keyword">const</span> [state, dispatch] = <span class="hljs-title function_">useReducer</span>(reducer, initState)<br><span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Context.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;&#123;state,</span> <span class="hljs-attr">dispatch</span>&#125;&#125;&gt;</span></span><br><span class="language-xml">        &#123;props.children&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">Context.Provider</span>&gt;</span></span><br>)<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123; <span class="hljs-title class_">Context</span>, <span class="hljs-title class_">Provider</span> &#125;<br><br></code></pre></td></tr></table></figure>
-
-
-
-<p>在这个数据项中可以看出 initState<code> </code>reducer<code>的定义和使用</code>redux&#96;是一模一样的 </p>
+<p>在这个数据项中可以看出 initState<code> </code>reducer<code>的定义和使用</code>redux`是一模一样的</p>
 <p>重点看下面的创建的上下文 首先通过<code>React.createContext()</code>创建一个空的上下文</p>
 <p>然后定义<code>Provider</code>这个组件 在内部用<code>useReducer</code>把<code>reducer</code>和初始化的<code>initState</code>传入进去</p>
 <p>返回的<code>state</code>和<code>dispatch</code>提供到<code>Provider</code>作为数据源</p>
 <p>数据项聚合一下</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-comment">// 聚合count、todo这些数据项</span><br><span class="hljs-keyword">const</span> providers = [<br>    <span class="hljs-title class_">Count</span>.<span class="hljs-property">Provider</span>,<br>    <span class="hljs-title class_">Todo</span>.<span class="hljs-property">Provider</span><br>];<br><span class="hljs-comment">// 递归包裹Provider</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">ProvidersComposer</span> = (<span class="hljs-params">props</span>) =&gt; (<br>    props.<span class="hljs-property">providers</span>.<span class="hljs-title function_">reduceRight</span>(<span class="hljs-function">(<span class="hljs-params">children, Parent</span>) =&gt;</span> (<br>        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Parent</span>(&#123;children&#125;)<br>    ), props.<span class="hljs-property">children</span>)<br>)<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Provider</span> = (<span class="hljs-params">props</span>) =&gt; &#123;<br><span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ProvidersComposer</span> <span class="hljs-attr">providers</span>=<span class="hljs-string">&#123;providers&#125;</span>&gt;</span></span><br><span class="language-xml">        &#123;props.children&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ProvidersComposer</span>&gt;</span></span><br>)<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Provider</span><br></code></pre></td></tr></table></figure>
-
-
-
 <p>最后出来的组件结构： <code>Provider &gt; Context.Provider &gt; Context.Provider &gt; App</code> 我们通过ProviderComposer进行递归包裹，把每个<code>Provider</code>进行一层一层的包裹 这里使用了<code>parent(&#123;children&#125;)</code>替代了<code>&lt;Parent&gt;&#123;children&#125;&lt;/Parent&gt;</code>，这样的做法可以减少一层嵌套结构。</p>
-<p>如何使用捏:hankey:</p>
+<p>如何使用捏💩</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useContext, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-comment">// 引入count数据源</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">CountStore</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store/modules/count&#x27;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">App</span> = (<span class="hljs-params">props</span>) =&gt; &#123;<br>    <span class="hljs-comment">// 通过useContext使用Count这个store的上下文</span><br>    <span class="hljs-keyword">const</span> &#123;state, dispatch&#125; = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">CountStore</span>.<span class="hljs-property">Context</span>)<br>    <span class="hljs-comment">// 每秒更新count</span><br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-title function_">dispatch</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;ADD_COUNT&#x27;</span> &#125;)<br>        &#125;, <span class="hljs-number">1000</span>);<br>    &#125;, [])<br>    <br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&#x27;app&#x27;</span>&gt;</span></span><br><span class="language-xml">            &#123;JSON.stringify(state)&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span><br><br></code></pre></td></tr></table></figure>
-
 <p>这样就实现啦一个小型<code>redux</code> 感觉比正常的<code>redux</code>会好用一些捏</p>
 
                 
@@ -335,6 +332,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/React/" class="category-chain-item">React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>

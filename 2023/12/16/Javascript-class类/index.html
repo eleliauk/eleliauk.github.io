@@ -16,12 +16,12 @@
   <meta name="author" content="Shanyujia">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Javascript-class类类的定义有两个组成部分  类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
+    <meta name="description" content="Javascript-class类 类的定义 有两个组成部分 类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript-class类">
 <meta property="og:url" content="http://example.com/2023/12/16/Javascript-class%E7%B1%BB/index.html">
 <meta property="og:site_name" content="Shanyujia&#39;s Blog">
-<meta property="og:description" content="Javascript-class类类的定义有两个组成部分  类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
+<meta property="og:description" content="Javascript-class类 类的定义 有两个组成部分 类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-16T13:23:46.000Z">
 <meta property="article:modified_time" content="2023-12-16T14:32:18.358Z">
@@ -94,7 +94,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
+      <strong>Shanyujia&#39;s blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -114,7 +114,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>主页</span>
               </a>
             </li>
           
@@ -126,7 +126,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>历史</span>
               </a>
             </li>
           
@@ -138,7 +138,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -150,7 +150,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -162,7 +162,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -272,23 +272,22 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Javascript-class类"><a href="#Javascript-class类" class="headerlink" title="Javascript-class类"></a><code>Javascript</code>-class类</h1><h3 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h3><p>有两个组成部分 </p>
+                <h1><code>Javascript</code>-class类</h1>
+<h3 id="类的定义">类的定义</h3>
+<p>有两个组成部分</p>
 <p>类表达式和类声明</p>
 <p>每个类中包含了一个特殊的方法 <code>constructor()</code>，它是类的构造函数，这种方法用于创建和初始化一个由 <code>class</code> 创建的对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//类声明</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>    &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age;<br>    &#125;<br>&#125;<br><span class="hljs-comment">//类表达式</span><br><span class="hljs-keyword">const</span> B=<span class="hljs-keyword">class</span>&#123;<br><span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>    &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>以上创造了一个类  叫<code>A</code> </p>
+<p>以上创造了一个类  叫<code>A</code></p>
 <p>初始化了两个参数 <code>name , age</code></p>
-<h3 id="使用类"><a href="#使用类" class="headerlink" title="使用类"></a>使用类</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a1=<span class="hljs-keyword">new</span> A (<span class="hljs-string">&#x27;shanyujia&#x27;</span>,<span class="hljs-number">18</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a1)<br><span class="hljs-comment">// =&gt;&#123; name: &#x27;shanyujia&#x27;, age: 18 &#125;</span><br></code></pre></td></tr></table></figure>
-
-<p>基于这个类去创造这个类的实例 </p>
+<h3 id="使用类">使用类</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a1=<span class="hljs-keyword">new</span> A (<span class="hljs-string">&#x27;shanyujia&#x27;</span>,<span class="hljs-number">18</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a1)<br><span class="hljs-comment">// =&gt;&#123; name: &#x27;shanyujia&#x27;, age: 18 &#125;</span><br></code></pre></td></tr></table></figure>
+<p>基于这个类去创造这个类的实例</p>
 <p>基于这个对象生成 结构相同 内部数据不同的对象形式</p>
-<h3 id="自定义方法"><a href="#自定义方法" class="headerlink" title="自定义方法"></a>自定义方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>      &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age;<br>      &#125;<br>    <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>)&#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我的名字是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>,我的年龄是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.age&#125;</span> `</span>)<br>    &#125;<br>&#125;<br>a1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">// =&gt; 我的名字是shanyujia,我的年龄是18</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span>&#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age,sex</span>)&#123;<br>        <span class="hljs-comment">//如果希望继承A的属性 写一个super的调用</span><br>        <span class="hljs-comment">//调用父类的constructor 将属性也在B类生成</span><br>    <span class="hljs-variable language_">super</span>(name,age)<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">sex</span>=sex<br>    &#125;<br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;你好我是&#x27;</span>+<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> b1=<span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>(<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-number">20</span>,<span class="hljs-string">&#x27;男&#x27;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b1)<br>b1.<span class="hljs-title function_">sayHello</span>()<br>b1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">/*&#123; name: &#x27;张三&#x27;, age: 20, sex: &#x27;男&#x27; &#125;</span><br><span class="hljs-comment">我的名字是张三,我的年龄是20</span><br><span class="hljs-comment">你好我是张三*/</span><br></code></pre></td></tr></table></figure>
-
-
-
+<h3 id="自定义方法">自定义方法</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>      &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age;<br>      &#125;<br>    <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>)&#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我的名字是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>,我的年龄是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.age&#125;</span> `</span>)<br>    &#125;<br>&#125;<br>a1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">// =&gt; 我的名字是shanyujia,我的年龄是18</span><br></code></pre></td></tr></table></figure>
+<h3 id="类的继承">类的继承</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span>&#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age,sex</span>)&#123;<br>        <span class="hljs-comment">//如果希望继承A的属性 写一个super的调用</span><br>        <span class="hljs-comment">//调用父类的constructor 将属性也在B类生成</span><br>    <span class="hljs-variable language_">super</span>(name,age)<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">sex</span>=sex<br>    &#125;<br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;你好我是&#x27;</span>+<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> b1=<span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>(<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-number">20</span>,<span class="hljs-string">&#x27;男&#x27;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b1)<br>b1.<span class="hljs-title function_">sayHello</span>()<br>b1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">/*&#123; name: &#x27;张三&#x27;, age: 20, sex: &#x27;男&#x27; &#125;</span><br><span class="hljs-comment">我的名字是张三,我的年龄是20</span><br><span class="hljs-comment">你好我是张三*/</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
