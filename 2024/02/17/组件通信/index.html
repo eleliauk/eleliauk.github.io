@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="React组件通信 组件 dom组件 react支持的html和svg标签 props 什么是props  html属性的功能 dom属性 类名 className 样式 12345678style&#x3D;&#123;    &#123;    width:&#x27;100vh&#x27;,    height:100,    backgroundColor:&#x27;grey&#x27;    &#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组件通信">
+<meta property="og:url" content="http://example.com/2024/02/17/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="React组件通信 组件 dom组件 react支持的html和svg标签 props 什么是props  html属性的功能 dom属性 类名 className 样式 12345678style&#x3D;&#123;    &#123;    width:&#x27;100vh&#x27;,    height:100,    backgroundColor:&#x27;grey&#x27;    &#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-02-17T10:17:34.000Z">
+<meta property="article:modified_time" content="2024-03-22T17:07:31.370Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>组件通信 - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="组件通信"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-17 18:17" pubdate>
+          February 17, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">组件通信</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1><code>React组件通信</code></h1>
+<p>组件</p>
+<p><code>dom</code>组件 <code>react</code>支持的<code>html</code>和<code>svg</code>标签</p>
+<h3 id="props"><code>props</code></h3>
+<p>什么是<code>props</code>  <code>html</code>属性的功能</p>
+<p><code>dom</code>属性</p>
+<p>类名 <code>className</code></p>
+<p>样式</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx">style=&#123;<br>    &#123;<br>    <span class="hljs-attr">width</span>:<span class="hljs-string">&#x27;100vh&#x27;</span>,<br>    <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>,<br>    <span class="hljs-attr">backgroundColor</span>:<span class="hljs-string">&#x27;grey&#x27;</span><br>    <span class="hljs-comment">//带-的写成驼峰</span><br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>也可以书写变量</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> imgStyle=&#123;<br>    <span class="hljs-attr">width</span>:<span class="hljs-string">&#x27;100vh&#x27;</span>,<br>    <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>,<br>    <span class="hljs-attr">backgroundColor</span>:<span class="hljs-string">&#x27;grey&#x27;</span><br>&#125;<br><span class="hljs-keyword">return</span>(<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;imgStyle&#125;/</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br></code></pre></td></tr></table></figure>
+<p><code>jsx</code>展开语法</p>
+<p>把所有属性书写为一个变量</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> image <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./logo.svg&#x27;</span><br><span class="hljs-keyword">const</span> imgData=&#123;<br>    className=<span class="hljs-string">&#x27;small&#x27;</span>,<br>    <span class="hljs-attr">style</span>:&#123;<br>    <span class="hljs-attr">width</span>:<span class="hljs-string">&#x27;100vh&#x27;</span>,<br>    <span class="hljs-attr">height</span>:<span class="hljs-number">100</span>,<br>    <span class="hljs-attr">backgroundColor</span>:<span class="hljs-string">&#x27;grey&#x27;</span><br>&#125;    &#125;<br><span class="hljs-keyword">return</span>(<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">img</span></span></span><br><span class="hljs-tag"><span class="language-xml">            //<span class="hljs-attr">src标签不能提出</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">src</span>=<span class="hljs-string">&#123;image&#125;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            &#123;<span class="hljs-attr">...imgData</span>&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">            /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>)<br></code></pre></td></tr></table></figure>
+<p>自定义组件<code>react的props</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Artcile</span>(<span class="hljs-params"></span>)<br>&#123;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>111<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>222<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    )<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>)<br>&#123;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span>/&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span>/&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span>/&gt;</span>                                  </span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span>/&gt;</span> </span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br><br><br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果对组件的结构逻辑 样式复用</p>
+<p>内容不复用的话 可以写成</p>
+<p>对组件内容定制</p>
+<p>步骤</p>
+<p>1.对父元素(上面的<code>App</code>)进行请求 请求功能所需要的数据</p>
+<p>2.创建组件</p>
+<p>3.把数据传给组件</p>
+<p>父组件向子组件传普通值</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span>(<span class="hljs-params"></span>)<br>&#123;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;content&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>状态:&#123;active?&#x27;显示&#x27;:&#x27;隐藏&#x27;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    )<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Artcile</span>(<span class="hljs-params">&#123;acticleData&#125;</span>)<br><span class="hljs-comment">//采用解构</span><br>&#123;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Detail</span> &#123;<span class="hljs-attr">...articleData</span>&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">                &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Detail</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    )<br>    <span class="hljs-comment">//此时Article没用到content和active</span><br>    <span class="hljs-comment">//但是Detail用到了 可以在Article先不传 直接传给Detail</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>)<br>&#123;<span class="hljs-keyword">const</span> articleData=&#123;<br>    <span class="hljs-attr">title</span>:<span class="hljs-string">&#x27;1&#x27;</span>,<br>    <span class="hljs-attr">detailData</span>:&#123;<br>    <span class="hljs-attr">content</span>:<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-attr">active</span>:<span class="hljs-literal">true</span><br>&#125;<br>&#125;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span></span></span><br><span class="hljs-tag"><span class="language-xml">            &#123;<span class="hljs-attr">...acticleData</span>&#125;</span></span><br><span class="hljs-tag"><span class="language-xml">            /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;2&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;2&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">active</span></span></span><br><span class="hljs-tag"><span class="language-xml">            /&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Article</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;3&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;3&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">active</span></span></span><br><span class="hljs-tag"><span class="language-xml">            /&gt;</span>                                 </span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br><br><br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>父组件向子组件传<code>jsx</code></p>
+<p>插槽 <code>jsx</code>作为<code>props</code>传给子组件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">List</span> (&#123;children,title,footer=       <br>                <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>默认底部<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>&#125;)<br><span class="hljs-comment">//此时footer需要一个默认值</span><br>&#123;<br>    <span class="hljs-keyword">return</span>(<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;title&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">            &#123;children&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">        &#123;footer&#125;</span><br><span class="language-xml"><span class="hljs-tag">&lt;/&gt;</span></span><br>)<br>&#125;<br><span class="hljs-comment">//如果需要在列表加元素</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span> ()<br>&#123;<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        //之前是通过props传递 现在通过children</span><br><span class="language-xml">        //自动接受组件开始和接受的内容</span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">List</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;列表1&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">footer</span>=<span class="hljs-string">&#123;</span></span></span><br><span class="hljs-tag"><span class="language-xml">                &lt;<span class="hljs-attr">p</span>&gt;</span>这是底部内容1<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml">            &#125;&gt;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">List</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">List</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;列表2&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">footer</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">p</span>&gt;</span>这是底部内容2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&#125;&gt;</span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容A<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容B<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容C<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">List</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">List</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;列表3&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">            //<span class="hljs-attr">此时没设置footer会显示默认值</span></span></span><br><span class="hljs-tag"><span class="language-xml">            &gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容X<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容Y<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>内容Z<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">List</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>子组件向父组件传值</p>
+<p>父组件给子组件一个自定义事件的设置 再通过事件触发后向父组件传递参数来设置</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Detail</span> (&#123;onActive&#125;)&#123;<br>    <span class="hljs-comment">//希望告诉父组件内部状态 在handleClick函数使用的变更 所以在handleClick加入onACtive事件并传入status</span><br>    <span class="hljs-keyword">const</span> [status,setStatus]=<span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>)<br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleClick</span>(<span class="hljs-params"></span>)<br>    &#123;<br>        <span class="hljs-title function_">setStatus</span>(!status)<br>        <span class="hljs-title function_">onActive</span>(status)<br>        <span class="hljs-comment">//每次状态变更 传递一个新值 传递到function App()</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> (<br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;handleClick&#125;</span>&gt;</span>按钮<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">p</span> </span></span><br><span class="hljs-tag"><span class="language-xml">                <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;display;staus?</span></span></span><br><span class="hljs-tag"><span class="language-xml">                    &#x27;<span class="hljs-attr">block</span>&#x27;<span class="hljs-attr">:</span>&#x27;<span class="hljs-attr">none</span>&#x27;&#125;&#125;&gt;</span></span><br><span class="language-xml">                Detail的内容<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    )<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleActive</span>(<span class="hljs-params">status</span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(status)<br>    &#125;<br>    <span class="hljs-keyword">return</span>(<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">        //如果希望父组件能接受子组件的状态的话需要给子组件设置一个自定义属性(onActive)可以理解为事件 用代码决定在何时触发</span><br><span class="language-xml">        </span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">Detail</span></span></span><br><span class="hljs-tag"><span class="language-xml">            <span class="hljs-attr">onActive</span>=<span class="hljs-string">&#123;handleActive&#125;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Detail</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;/&gt;</span></span><br>    <br>    )<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>同级组件传值</p>
+<p>在父组件进行中转</p>
+<p>多层级传值</p>
+<p>提供了一个多级属性穿透的hook</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123;useState&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Section</span> (&#123;children&#125;)<br>&#123;<br>    <span class="hljs-comment">//获取上一级level</span><br>    <span class="hljs-keyword">const</span> level=<span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">LevelContext</span>)<br>    <span class="hljs-keyword">return</span> (<br>        <br>        <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;section&quot;</span>&gt;</span></span><br><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">LevelContect.Provider</span> </span></span><br><span class="hljs-tag"><span class="language-xml">                <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;</span></span></span><br><span class="hljs-tag"><span class="language-xml">              <span class="hljs-attr">level</span>+<span class="hljs-attr">1</span>      </span></span><br><span class="hljs-tag"><span class="language-xml">                &#125;&gt;</span></span><br><span class="language-xml">             &#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">LevelContect.Provider</span>&gt;</span></span><br><span class="language-xml">           </span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br>    )<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Heading</span>(<span class="hljs-params">&#123;level,children&#125;</span>)<br>&#123;<br>    <span class="hljs-keyword">const</span> level=<span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">LevelContext</span>)<br><span class="hljs-comment">//设置之后此时全为h1(若默认值是1)</span><br><span class="hljs-comment">//但是h1和section嵌套会使h1显示出从大到小的样式</span><br>    <span class="hljs-keyword">switch</span>(level)&#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span></span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>            <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h6</span>&gt;</span>&#123;children&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span></span><br>    &#125; <br>&#125;<br><span class="hljs-keyword">const</span> <span class="hljs-title class_">LevelContext</span>=<span class="hljs-title function_">createContext</span>(<span class="hljs-number">0</span>)<br><span class="hljs-comment">//不能直接用 通过useContext</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span> ()&#123;<br>    <span class="hljs-keyword">return</span>(<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>主标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>副标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>副标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>副标题 <span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span>&gt;</span>子标<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span>&gt;</span>子标<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子标<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>        </span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span>&gt;</span>子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml">              <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子标题<span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>&gt;</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子子标题 <span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子子标题 <span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Heading</span> &gt;</span>子子子子标题 <span class="hljs-tag">&lt;/<span class="hljs-name">Heading</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>  </span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml">                  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></span><br><span class="language-xml">                      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Ps:</code>可能会出现都是<code>h1</code>标签但是大小却不同的情况</p>
+<p><code>section</code> 和<code>h1</code>嵌套时候自然出现的状态</p>
+<p>如何更改<code>useContext</code>能够获取到的level信息</p>
+<p><code>useContext</code>创建的对象<code>LevelContext</code>提供一个<code>Provider</code></p>
+<p>给<code>context</code>提供值的一个方式</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/React/" class="category-chain-item">React</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>组件通信</div>
+      <div>http://example.com/2024/02/17/组件通信/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>February 17, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/17/React%20hook/" title="React hook">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">React hook</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/16/Javascript-class%E7%B1%BB/" title="Javascript-class类">
+                        <span class="hidden-mobile">Javascript-class类</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

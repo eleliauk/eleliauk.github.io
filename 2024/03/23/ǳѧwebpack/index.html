@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="浅浅看一下打包原理吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅学webpack">
+<meta property="og:url" content="http://example.com/2024/03/23/%C7%B3%D1%A7webpack/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="浅浅看一下打包原理吧">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2.imgtp.com/2024/03/23/h5xQHqFC.jpg">
+<meta property="article:published_time" content="2024-03-22T16:01:03.000Z">
+<meta property="article:modified_time" content="2024-03-22T17:29:28.000Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img2.imgtp.com/2024/03/23/h5xQHqFC.jpg">
+  
+  
+  
+  <title>浅学webpack - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="浅学webpack"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-23 00:01" pubdate>
+          March 23, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">浅学webpack</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>webpack原理(一)</h1>
+<h3 id="1-啥是webpack捏❔">1.啥是webpack捏❔</h3>
+<p>本质上，<strong>webpack</strong> 是一个用于现代 JavaScript 应用程序的 <em>静态模块打包工具</em>。当 webpack 处理应用程序时，它会在内部从一个或多个入口点构建一个 <a target="_blank" rel="noopener" href="https://www.webpackjs.com/concepts/dependency-graph/">依赖图(dependency graph)</a>，然后将你项目中所需的每一个模块组合成一个或多个 <em>bundles</em>，它们均为静态资源，用于展示你的内容</p>
+<h3 id="2-webpack主要流程">2.webpack主要流程</h3>
+<p>感觉webpack可以分成三部分</p>
+<ul>
+<li><strong>构建的核心流程</strong></li>
+<li><strong>loader 的作用</strong></li>
+<li><strong>plugin 架构与常用套路</strong></li>
+</ul>
+<h3 id="3-核心流程解析-😆">3.核心流程解析 😆</h3>
+<p>首先得知道这玩意最核心的功能是什么的吧</p>
+<p>就像他官网说的一样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs word">At its core, webpack is a static module bundler for modern JavaScript applications.<br></code></pre></td></tr></table></figure>
+<p>也就是将各种类型的资源，包括图片、css、js等，转译、组合、拼接、生成 JS 格式的 bundler 文件</p>
+<p><img src="https://img2.imgtp.com/2024/03/23/6xbAXLks.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-03-23 012454.png"></p>
+<p>这个过程核心完成了 <strong>[内容转换+资源合并]</strong> 两种功能</p>
+<p>实际上包含三个阶段</p>
+<ul>
+<li>
+<h4 id="初始化阶段：">初始化阶段：</h4>
+</li>
+</ul>
+<ol>
+<li><strong>初始化参数</strong>：从配置文件、 配置对象、Shell 参数中读取，与默认配置结合得出最终的参数</li>
+<li><strong>创建编译器对象</strong>：用上一步得到的参数创建 <code>Compiler</code> 对象</li>
+<li><strong>初始化编译环境</strong>：包括注入内置插件、注册各种模块工厂、初始化 RuleSet 集合、加载配置的插件等</li>
+<li><strong>开始编译</strong>：执行 <code>compiler</code> 对象的 <code>run</code> 方法</li>
+<li><strong>确定入口</strong>：根据配置中的 <code>entry</code> 找出所有的入口文件，调用 <code>compilition.addEntry</code> 将入口文件转换为 <code>dependence</code> 对象</li>
+</ol>
+<ul>
+<li>
+<h4 id="构建阶段：">构建阶段：</h4>
+</li>
+</ul>
+<ol>
+<li><strong>编译模块(make)</strong>：根据 <code>entry</code> 对应的 <code>dependence</code> 创建 <code>module</code> 对象，调用 <code>loader</code> 将模块转译为标准 JS 内容，调用 JS 解释器将内容转换为 AST 对象，从中找出该模块依赖的模块，再 递归 本步骤直到所有入口依赖的文件都经过了本步骤的处理</li>
+<li><strong>完成模块编译</strong>：上一步递归处理所有能触达到的模块后，得到了每个模块被翻译后的内容以及它们之间的 <strong>依赖关系图</strong></li>
+</ol>
+<ul>
+<li>
+<h4 id="生成阶段：">生成阶段：</h4>
+</li>
+</ul>
+<ol>
+<li><strong>输出资源(seal)</strong>：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的 <code>Chunk</code>，再把每个 <code>Chunk</code> 转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会</li>
+<li><strong>写入文件系统(emitAssets)</strong>：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统</li>
+</ol>
+<p><img src="https://img2.imgtp.com/2024/03/23/czXM2g2f.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-03-23 012530.png"></p>
+<p>接下来说说细节部分吧 对上面一些听起来很高级的名词解释一手 :happy:</p>
+<ul>
+<li>
+<p><code>Entry</code>：编译入口，webpack 编译的起点</p>
+</li>
+<li>
+<p><code>Compiler</code>：编译管理器，webpack 启动后会创建 <code>compiler</code> 对象，该对象一直存活知道结束退出</p>
+<p>这玩意记录了webpack运行环境的所有信息 插件可以通过它获取到webpack配置信息,像<code>entry output module</code>等配置</p>
+</li>
+<li>
+<p><code>Compilation</code>：单次编辑过程的管理器，比如 <code>watch = true</code> 时，运行过程中只有一个 <code>compiler</code> 但每次文件变更触发重新编译时，都会创建一个新的 <code>compilation</code> 对象</p>
+<p>它储存了当前的模块资源、编译生成的资源、变化的文件、以及被跟踪依赖的状态信息</p>
+</li>
+<li>
+<p><code>Dependence</code>：依赖对象，webpack 基于该类型记录模块间依赖关系</p>
+</li>
+<li>
+<p><code>Module</code>：webpack 内部所有资源都会以“module”对象形式存在，所有关于资源的操作、转译、合并都是以 “module” 为基本单位进行的</p>
+</li>
+<li>
+<p><code>Chunk</code>：编译完成准备输出时，webpack 会将 <code>module</code> 按特定的规则组织成一个一个的 <code>chunk</code>，这些 <code>chunk</code> 某种程度上跟最终输出一一对应</p>
+</li>
+<li>
+<p><code>Loader</code>：资源内容转换器，其实就是实现从内容 A 转换 B 的转换器</p>
+</li>
+<li>
+<p><code>Plugin</code>：webpack构建过程中，会在特定的时机广播对应的事件，插件监听这些事件，在特定时间点介入编译过程</p>
+</li>
+</ul>
+<h3 id="4-Plugin解析">4.<code>Plugin</code>解析</h3>
+<p>看插件之前 首先想三个问题</p>
+<p>什么是插件</p>
+<p>什么时间点会有什么钩子被触发</p>
+<p>在钩子回调中,如何影响编译状态</p>
+<h4 id="What-什么是插件🚘">What: 什么是插件🚘</h4>
+<p>先从形态上来看 插件是个带有<code>apply</code>函数的类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SomePlugin</span> &#123;<br>	<span class="hljs-title function_">apply</span>(<span class="hljs-params">compiler</span>)&#123;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>apply</code> 函数运行时会得到参数 <code>compiler</code> ，以此为起点可以调用 <code>hook</code> 对象注册各种钩子回调，例如： <code>compiler.hooks.make.tapAsync</code> ，这里面 <code>make</code> 是钩子名称，<code>tapAsync</code> 定义了钩子的调用方式，webpack 的插件架构基于这种模式构建而成，插件开发者可以使用这种模式在钩子回调中，插入特定代码。webpack 各种内置对象都带有 <code>hooks</code> 属性，比如 <code>compilation</code> 对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SomePlugin</span> &#123;<br>    <span class="hljs-title function_">apply</span>(<span class="hljs-params">compiler</span>) &#123;<br>        compiler.<span class="hljs-property">hooks</span>.<span class="hljs-property">thisCompilation</span>.<span class="hljs-title function_">tap</span>(<span class="hljs-string">&#x27;SomePlugin&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">compilation</span>) =&gt;</span> &#123;<br>            compilation.<span class="hljs-property">hooks</span>.<span class="hljs-property">optimizeChunkAssets</span>.<span class="hljs-title function_">tapAsync</span>(<span class="hljs-string">&#x27;SomePlugin&#x27;</span>, <span class="hljs-function">()=&gt;</span>&#123;&#125;);<br>        &#125;)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="When-什么时候会触发钩子-📦">When: 什么时候会触发钩子 📦</h4>
+<p>官网对钩子的说明都比较简短</p>
+<p>直接看几个例子吧</p>
+<p><code>compiler.hooks.compilation</code> ：</p>
+<ul>
+<li>时机：启动编译创建出 compilation 对象后触发</li>
+<li>参数：当前编译的 compilation 对象</li>
+<li>示例：很多插件基于此事件获取 compilation 实例</li>
+</ul>
+<p><code>compiler.hooks.make</code>：</p>
+<ul>
+<li>时机：正式开始编译时触发</li>
+<li>参数：同样是当前编译的 <code>compilation</code> 对象</li>
+<li>示例：webpack 内置的 <code>EntryPlugin</code> 基于此钩子实现 <code>entry</code> 模块的初始化</li>
+</ul>
+<p><code>compilation.hooks.optimizeChunks</code> ：</p>
+<ul>
+<li>时机： <code>seal</code> 函数中，<code>chunk</code> 集合构建完毕后触发</li>
+<li>参数：<code>chunks</code> 集合与 <code>chunkGroups</code> 集合</li>
+<li>示例： <code>SplitChunksPlugin</code> 插件基于此钩子实现 <code>chunk</code> 拆分优化</li>
+</ul>
+<p><code>compiler.hooks.done</code>：</p>
+<ul>
+<li>时机：编译完成后触发</li>
+<li>参数： <code>stats</code> 对象，包含编译过程中的各类统计信息</li>
+<li>示例： <code>webpack-bundle-analyzer</code> 插件基于此钩子实现打包分析</li>
+</ul>
+<p>看这个钩子时候我直接看 触发时机 传递参数 示例代码</p>
+<p>首先看触发时机勒</p>
+<p>触发时机是与webpack工作过程紧密相关的,大体上从启动到结束,<code>compiler</code>对象逐次触发以下钩子</p>
+<p><img src="https://img2.imgtp.com/2024/03/23/1p0WM3NF.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-03-23 012707.png"></p>
+<p>而<code>compilation</code>对象逐次触发:</p>
+<p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de1f0d05a1274e6d86959b60a3d98742~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp" srcset="/img/loading.gif" lazyload alt="image (1).png"></p>
+<p>就都是嘟嘟嘟嘟嘟嘟长串 😓</p>
+<p>我自己的理解是 这个时机就是几个情况</p>
+<ul>
+<li>创建出这个对象触发</li>
+<li>正式开始编译就触发</li>
+<li>函数构建完毕后触发</li>
+</ul>
+<p>传递参数</p>
+<p>我在他的配置里没怎么找到 感觉无非传点modules之类的东西</p>
+<p>示例代码</p>
+<p>webpack这钩子实话实说</p>
+<p>抽象程度是小大的 我感觉最好的学习办法 就是查询其他插件中如何使用这些钩子 不然你就看吧 一看一个不吱声😭</p>
+<h4 id="How-如何影响编译状态捏">How 如何影响编译状态捏</h4>
+<p>webpack的插件体系跟平常看到的不太一样 hooks回调由webpack决定何时 以何种方式 而在hooks回调内部可以直接修改状态 调用上下文api等方式webpack产生 一些影响</p>
+<p>举个🏮子</p>
+<p><code>EntryPlugin</code>插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">EntryPlugin</span> &#123;<br>  <span class="hljs-title function_">apply</span>(<span class="hljs-params">compiler</span>) &#123;<br>    compiler.<span class="hljs-property">hooks</span>.<span class="hljs-property">compilation</span>.<span class="hljs-title function_">tap</span>(<br>      <span class="hljs-string">&quot;EntryPlugin&quot;</span>,<br>      <span class="hljs-function">(<span class="hljs-params">compilation, &#123; normalModuleFactory &#125;</span>) =&gt;</span> &#123;<br>        compilation.<span class="hljs-property">dependencyFactories</span>.<span class="hljs-title function_">set</span>(<br>          <span class="hljs-title class_">EntryDependency</span>,<br>          normalModuleFactory<br>        );<br>      &#125;<br>    );<br><br>    compiler.<span class="hljs-property">hooks</span>.<span class="hljs-property">make</span>.<span class="hljs-title function_">tapAsync</span>(<span class="hljs-string">&quot;EntryPlugin&quot;</span>, <span class="hljs-function">(<span class="hljs-params">compilation, callback</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">const</span> &#123; entry, options, context &#125; = <span class="hljs-variable language_">this</span>;<br><br>      <span class="hljs-keyword">const</span> dep = <span class="hljs-title class_">EntryPlugin</span>.<span class="hljs-title function_">createDependency</span>(entry, options);<br>      compilation.<span class="hljs-title function_">addEntry</span>(context, dep, options, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> &#123;<br>        <span class="hljs-title function_">callback</span>(err);<br>      &#125;);<br>    &#125;);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这里面 webpack会将上下文信息以参数或<code>this</code>形式传递给钩子回调用</p>
+<p>在回调中可以调用上下文对象的方法或者直接修改上下文对象属性的方式，对原定的流程产生 side effect。所以想纯熟地编写插件，除了要理解调用时机，还需要了解我们可以用哪一些api，例如：</p>
+<ul>
+<li><code>compilation.addModule</code>：添加模块，可以在原有的 <code>module</code> 构建规则之外，添加自定义模块</li>
+<li><code>compilation.emitAsset</code>：直译是“提交资产”，功能可以理解将内容写入到一个特定路径</li>
+<li><code>compilation.addEntry</code>：添加入口，功能上与直接定义 <code>entry</code> 配置相同</li>
+<li><code>module.addError</code>：添加编译错误信息</li>
+</ul>
+<h3 id="5-Loader介绍">5.Loader介绍</h3>
+<p>看一下<code>loader</code>在编译流程中的生效位置</p>
+<p><img src="https://img2.imgtp.com/2024/03/23/IYzGYIPf.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-03-23 012734.png"></p>
+<p>在这个流程图里,<code>runloaders</code>会调用用户所配置的loader集合读取,转移资源,前面的内容可以千奇百怪👽</p>
+<p>但是转译之后一般都是输出Javascript文本,webpack才可以继续处理模块依赖</p>
+<p>理解了这个基本逻辑,loader职责基本上也知道了 就是把内容A =&gt;内容B</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/webpack/" class="category-chain-item">webpack</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>浅学webpack</div>
+      <div>http://example.com/2024/03/23/ǳѧwebpack/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 23, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/11/Git%E5%AE%9D%E5%85%B8/" title="Git宝典">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git宝典</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/08/%E8%87%AA%E5%AE%9A%E4%B9%89React%20Hooks/" title="自定义React hooks">
+                        <span class="hidden-mobile">自定义React hooks</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
