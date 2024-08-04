@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="eslint小妙招🍶 1. 基本使用  项目安装eslint：yarn add eslint -D； 初始化eslint配置：eslint --init； 检测eslint：运行eslint；  1.1 基本参数 eslint配置参数的方式有两种，一种是通过配置文件，一种是通过命令行；配置文件的参数不一定包含命令行的，为了方便查看和使用，推荐优先在配置中配置； 1.1.1 .eslintrc参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eslint">
+<meta property="og:url" content="http://example.com/2024/08/04/eslint/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="eslint小妙招🍶 1. 基本使用  项目安装eslint：yarn add eslint -D； 初始化eslint配置：eslint --init； 检测eslint：运行eslint；  1.1 基本参数 eslint配置参数的方式有两种，一种是通过配置文件，一种是通过命令行；配置文件的参数不一定包含命令行的，为了方便查看和使用，推荐优先在配置中配置； 1.1.1 .eslintrc参数">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-04T09:04:23.000Z">
+<meta property="article:modified_time" content="2024-08-04T09:12:08.659Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>eslint - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="eslint"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-04 17:04" pubdate>
+          August 4, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">eslint</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>eslint小妙招🍶</h1>
+<h1>1. 基本使用</h1>
+<ol>
+<li>项目安装eslint：<code>yarn add eslint -D</code>；</li>
+<li>初始化eslint配置：eslint --init；</li>
+<li>检测eslint：运行eslint；</li>
+</ol>
+<h2 id="1-1-基本参数">1.1 基本参数</h2>
+<p>eslint配置参数的方式有两种，一种是通过配置文件，一种是通过命令行；配置文件的参数不一定包含命令行的，为了方便查看和使用，<strong>推荐优先在配置中配置</strong>；</p>
+<h3 id="1-1-1-eslintrc参数">1.1.1 .eslintrc参数</h3>
+<p>详情请查看<a href="https://link.juejin.cn?target=https%3A%2F%2Feslint.org%2Fdocs%2Fuser-guide%2Fconfiguring%2Fconfiguration-files%23configuration-file-formats">eslint.org/docs/user-g…</a>；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>	<span class="hljs-comment">// 若项目中有多个子项目，且每个项目都会有.eslintrc，子项目会一直向上查找所有的.eslintrc，直到找到root:true的eslintrc，再将所有的.eslintrc合并</span><br>	<span class="hljs-string">&#x27;root&#x27;</span>: <span class="hljs-literal">true</span>,<br>	<span class="hljs-comment">// 对环境定义的一组全局变量的预设 详细看：https://eslint.org/docs/user-guide/configuring/language-options#specifying-environments</span><br>	<span class="hljs-string">&#x27;env&#x27;</span>: &#123;<br>		<span class="hljs-comment">// 浏览器全局变量</span><br>		<span class="hljs-attr">browser</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-comment">// Node.js 全局变量和作用域</span><br>		<span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-comment">// CommonJS全局变量和CommonJS作用域</span><br>		<span class="hljs-attr">commonjs</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-comment">// 启用除模块之外的所有ECMAScript 6功能</span><br>		<span class="hljs-attr">es6</span>: <span class="hljs-literal">true</span><br>	&#125;,<br>	<span class="hljs-comment">// 将数据提供给每一个将被执行的规则</span><br>	<span class="hljs-string">&quot;settings&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;sharedData&quot;</span>: <span class="hljs-string">&quot;Hello&quot;</span><br>	&#125;,<br>	<span class="hljs-comment">// 继承另一个配置文件的所有特性</span><br>	<span class="hljs-string">&#x27;extends&#x27;</span>: [<br>		<span class="hljs-string">&#x27;eslint:recommended&#x27;</span>,<br>		<span class="hljs-string">&#x27;plugin:@typescript-eslint/recommended&#x27;</span><br>	],<br>	<span class="hljs-comment">// 插件，向ESLint添加各种扩展，可以定义规则，环境或配置的第三方模块</span><br>	<span class="hljs-string">&#x27;plugins&#x27;</span>: [<br>		<span class="hljs-string">&#x27;@typescript-eslint&#x27;</span><br>	],<br>	<span class="hljs-comment">// 全局变量</span><br>	<span class="hljs-string">&#x27;globals&#x27;</span>: &#123;<br>		<span class="hljs-comment">// false、readable、readonly 这 3 个是等价的，表示变量只可读不可写；</span><br>		<span class="hljs-comment">// true、writeable、writable 这 3 个是等价的，表示变量可读可写；</span><br>		<span class="hljs-string">&#x27;$&#x27;</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-string">&#x27;console&#x27;</span>: <span class="hljs-literal">false</span><br>	&#125;,<br>	<span class="hljs-comment">// 解释器</span><br>	<span class="hljs-string">&#x27;parser&#x27;</span>: <span class="hljs-string">&#x27;@typescript-eslint/parser&#x27;</span>,<br>	<span class="hljs-comment">// 解释器的配置</span><br>	<span class="hljs-string">&#x27;parserOptions&#x27;</span>: &#123;<br>		<span class="hljs-comment">// 代码模块类型，可选script(默认)，module</span><br>		<span class="hljs-string">&#x27;sourceType&#x27;</span>: <span class="hljs-string">&#x27;module&#x27;</span>,<br>		<span class="hljs-comment">// 指定ECMAScript版本，默认为5</span><br>		<span class="hljs-string">&#x27;ecamVersion&#x27;</span>: <span class="hljs-number">6</span>,<br>		<span class="hljs-comment">// 额外的语言特性，所有选项默认都是 false</span><br>		<span class="hljs-string">&#x27;ecmaFeatures&#x27;</span>: &#123;<br>			<span class="hljs-comment">// 是否允许 return 语句出现在 global 环境下</span><br>			<span class="hljs-string">&#x27;globalReturn&#x27;</span>: <span class="hljs-literal">true</span>,<br>			<span class="hljs-comment">// 是否开启全局 script 模式</span><br>			<span class="hljs-string">&#x27;impliedStrict&#x27;</span>: <span class="hljs-literal">true</span>,<br>			<span class="hljs-comment">// 是否启用 JSX</span><br>			<span class="hljs-string">&#x27;jsx&#x27;</span>: <span class="hljs-literal">true</span>,<br>			<span class="hljs-comment">// 是否启用对实验性的objectRest/spreadProperties的支持</span><br>			<span class="hljs-string">&#x27;experimentalObjectRestSpread&#x27;</span>: <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;,<br>	<span class="hljs-comment">// 规则</span><br>	<span class="hljs-string">&#x27;rules&#x27;</span>: &#123;<br>		<span class="hljs-comment">// 禁止使用 alert</span><br>		<span class="hljs-string">&#x27;no-alert&#x27;</span>: <span class="hljs-string">&#x27;off&#x27;</span>,<br>		<span class="hljs-comment">// 逗号前面没有空格 后面有空格</span><br>		<span class="hljs-string">&#x27;comma-spacing&#x27;</span>: [<span class="hljs-number">2</span>, &#123;<br>			<span class="hljs-string">&#x27;before&#x27;</span>: <span class="hljs-literal">false</span>, <span class="hljs-string">&#x27;after&#x27;</span>: <span class="hljs-literal">true</span><br>		&#125;],<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="1-1-2-命令行参数">1.1.2 命令行参数</h3>
+<p>详情请查看<a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fuser-guide%2Fcommand-line-interface">eslint.cn/docs/user-g…</a>；</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs lua">lua<br><br> 代码解读<br>复制代码eslint [options] file.js [file.js] [dir]<br><br>Basic configuration:<br>  <span class="hljs-comment">--no-eslintrc                  禁止使用配置文件.eslintrc.*</span><br>  -c, <span class="hljs-comment">--config path::String      指定使用.eslintrc.*配置文件的路径（可以不是这个名字）</span><br>  <span class="hljs-comment">--env [String]                 指定环境</span><br>  <span class="hljs-comment">--ext [String]                 指定JavaScript文件扩展名，默认值：.js</span><br>  <span class="hljs-comment">--global [String]              定义全局变量</span><br>  <span class="hljs-comment">--parser String                指定解析器</span><br>  <span class="hljs-comment">--parser-options Object        指定解析器配置</span><br>  <span class="hljs-comment">--resolve-plugins-relative-to path::String  应该从中解析插件的文件夹，默认为CWD</span><br><br>Specifying rules <span class="hljs-keyword">and</span> plugins:<br>  <span class="hljs-comment">--rulesdir [path::String]      使用其他规则的目录</span><br>  <span class="hljs-comment">--plugin [String]              指定插件</span><br>  <span class="hljs-comment">--rule Object                  指定规则</span><br><br>Fixing problems:<br>  <span class="hljs-comment">--fix                          自定修复eslint问题</span><br>  <span class="hljs-comment">--fix-dry-run                  自动修复问题但不保存对文件的更改</span><br>  <span class="hljs-comment">--fix-type Array               指定要应用的修复类型（问题、建议、布局）</span><br><br>Ignoring files:<br>  <span class="hljs-comment">--ignore-path path::String     指定忽略的路径 即指定一个文件作为.eslintignore</span><br>  <span class="hljs-comment">--no-ignore                    禁用忽略文件和模式的使用</span><br>  <span class="hljs-comment">--ignore-pattern [String]      要忽略的文件模式（除了.eslintignore中的文件）</span><br><br>Using <span class="hljs-built_in">stdin</span>:<br>  <span class="hljs-comment">--stdin                        &lt;STDIN&gt;上提供的Lint代码-默认值：false</span><br>  <span class="hljs-comment">--stdin-filename String        指定STDIN的文件名</span><br><br>Handling warnings:<br>  <span class="hljs-comment">--quiet                        仅报告错误-默认值：false</span><br>  <span class="hljs-comment">--max-warnings Int             触发退出代码的警告次数-默认值：-1</span><br><br>Output:<br>  -o, <span class="hljs-comment">--output-file path::String  指定要将报告写入的文件</span><br>  -f, <span class="hljs-comment">--format String            使用特定的输出格式-默认值：stylish</span><br>  <span class="hljs-comment">--color, --no-color            强制启用/禁用颜色</span><br><br>Inline configuration comments:<br>  <span class="hljs-comment">--no-inline-config             防止注释更改配置或规则</span><br>  <span class="hljs-comment">--report-unused-disable-directives  添加错误信息给未被使用的eslint-disable指令</span><br><br>Caching:<br>  <span class="hljs-comment">--cache                        仅检查已更改的文件-默认值：false</span><br>  <span class="hljs-comment">--cache-file path::String      缓存文件的路径，不推荐使用：使用--cache-location - 默认值：.eslintcache</span><br>  <span class="hljs-comment">--cache-location path::String  缓存文件或目录的路径</span><br><br>Miscellaneous:<br>  <span class="hljs-comment">--init                         运行配置初始化向导-默认值：false</span><br>  <span class="hljs-comment">--debug                        输出调试信息</span><br>  -h, <span class="hljs-comment">--help                     显示help文档</span><br>  -v, <span class="hljs-comment">--version                  输出版本号</span><br>  <span class="hljs-comment">--print-config path::String    打印给定文件的配置</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-2-常用参数概念补充">2.2 常用参数概念补充</h2>
+<h3 id="2-2-1-解析器">2.2.1 解析器</h3>
+<ol>
+<li>esprima：eslint早期使用的解析器；</li>
+<li>espree：基于esprema v1.2.2开发，现在默认的解析器；</li>
+<li>@babel/eslint-parser：js高级语法的解析器；</li>
+<li>@typescript-eslint/parser：ts的解析器；</li>
+</ol>
+<h3 id="2-2-2-规则配置">2.2.2 规则配置</h3>
+<ol>
+<li>“off” 或 0： 关闭规则；</li>
+<li>“warn” 或 1： 开启规则，使用警告级别的错误：warn (不会导致程序退出)；</li>
+<li>“error” 或 2： 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)；</li>
+</ol>
+<h3 id="2-2-3-extends支持的配置类型">2.2.3 extends支持的配置类型</h3>
+<ol>
+<li>eslint开头：ESLint官方扩展；</li>
+<li>plugin开头：插件类型扩展；和configs里面配置的一一对应；</li>
+<li>eslint-config开头：npm包，使用时可省略前缀eslint-config-；</li>
+<li>文件路径；</li>
+</ol>
+<p><strong>常用扩展：</strong></p>
+<ol>
+<li>eslint:recommended：ESLint内置的推荐规则，即 ESLint Rules 列表中打了钩的那些规则；</li>
+<li>eslint:all：ESLint 内置的所有规则；</li>
+<li>eslint-config-standard：standard 的 JS 规范；</li>
+<li>eslint-config-prettier：关闭和 ESLint 中以及其他扩展中有冲突的规则；</li>
+<li>eslint-plugin-vue：vue官方eslint配置插件，配置共享有：
+<ol>
+<li>plugin:vue/base：基础；</li>
+<li>plugin:vue/essential：必不可少的；</li>
+<li>plugin:vue/recommended：推荐的；</li>
+<li>plugin:vue/strongly-recommended：强烈推荐；</li>
+</ol>
+</li>
+</ol>
+<h2 id="2-3-配置不需要lint的文件或目录">2.3 配置不需要lint的文件或目录</h2>
+<p>可以在.eslintignore中指定对应的文件或目录，以达到eslint执行时不检测（eslint本身是忽略node_modules和bower_components的）；如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lua">lua<br><br> 代码解读<br>复制代码mock<br>build/*.js<br><span class="hljs-built_in">config</span>/*.js<br></code></pre></td></tr></table></figure>
+<h2 id="ESLint配置共享">ESLint配置共享</h2>
+<p>每个团队的规范是不一样的，公司内部希望每个产品线的规范一致，那么可以将配置分享出来打成npm包，以供不同团队直接配置使用；</p>
+<p><strong>如何写一个配置共享？</strong></p>
+<ol>
+<li>创建一个文件夹，名称为eslint-config-myconfig；</li>
+<li>执行<code>yarn init -y</code>；（模块名必须以eslint-config-开头，项目文件名称随意）；</li>
+<li>创建index.js，里面写入需要分享的.eslintrc.js的配置；</li>
+<li>用 <a href="https://link.juejin.cn?target=https%3A%2F%2Fdocs.npmjs.com%2Ffiles%2Fpackage.json%23peerdependencies">peerDependencies</a> 字段声明依赖的 ESLint（明确插件需要 ESLint 才能正常运行）；</li>
+<li>发包即可；</li>
+</ol>
+<p><strong>PS</strong>：发包形式写插件都支持@scope/eslint-xxx-xxx形式，<a href="https://link.juejin.cn?target=https%3A%2F%2Fdocs.npmjs.com%2Fcli%2Fv7%2Fusing-npm%2Fscope%2F">详情</a>；</p>
+<p><strong>如何使用上面的包？</strong></p>
+<ol>
+<li>安装包，如： <code>yarn add eslint-config-myconfig -D</code>；</li>
+<li>在项目中的.eslintrc中配置extends配置，具体查看基本使用；</li>
+</ol>
+<h1>2 <a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fdeveloper-guide%2Fworking-with-plugins">ESLint插件</a></h1>
+<h2 id="2-1-ESLint插件是什么？">2.1 ESLint插件是什么？</h2>
+<p>插件可向ESLint添加各种扩展，是可定义规则，环境、处理器或配置的第三方模块；</p>
+<p><strong>如何自定义一个ESLint插件？</strong></p>
+<p>使用<a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fgenerator-eslint">generator-eslint</a>创建一个项目，该项目的模块名需以eslint-plugin-开头，使用的时候，则是去掉eslint-plugin-；</p>
+<p>如npm包名：eslint-plugin-myplugin；</p>
+<h3 id="2-1-1-定义规则">2.1.1 定义规则</h3>
+<p>规则：eslint检测的规则方式；<br>
+定义方式：规定必须暴露一个rules对象；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-comment">// 这是插件的index.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>	<span class="hljs-attr">rules</span>: &#123;<br>		<span class="hljs-string">&#x27;my-rule&#x27;</span>: &#123;<br>			<span class="hljs-comment">// 规则的一些数据配置</span><br>			<span class="hljs-attr">meta</span>: &#123;<br>				<span class="hljs-comment">// 规则的类型 &quot;problem&quot;、&quot;suggestion&quot; 或 &quot;layout&quot;</span><br>				<span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;suggestion&#x27;</span>,<br>				<span class="hljs-comment">// 文档信息 自定义规则或插件中可省略，对eslint核心规则是必须的</span><br>				<span class="hljs-attr">docs</span>: &#123;<br>					<span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;规则的简短描述，在eslint规则首页展示&#x27;</span>,<br>					<span class="hljs-attr">category</span>: <span class="hljs-string">&#x27;规则在规则首页处于的分类&#x27;</span>,<br>					<span class="hljs-attr">recommended</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// &quot;extends&quot;: &quot;eslint:recommended&quot;属性是否启用该规则</span><br>					<span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;https://eslint.org/docs/rules/no-extra-semi&#x27;</span> <span class="hljs-comment">// 访问完整文档的 url</span><br>				&#125;,<br>				<span class="hljs-comment">// 打开修复功能，如果没有 fixable 属性，即使规则实现了 fix 功能，ESLint 也不会进行修复。如果规则不是可修复的，就省略 fixable 属性</span><br>				<span class="hljs-attr">fixable</span>: <span class="hljs-string">&#x27;code&#x27;</span>,<br>				<span class="hljs-comment">// 指定该规则对应的配置，用于验证配置的选项是否有效</span><br>				<span class="hljs-attr">schema</span>: [<br>            &#123;<br>                <span class="hljs-string">&quot;enum&quot;</span>: [<span class="hljs-string">&quot;always&quot;</span>, <span class="hljs-string">&quot;never&quot;</span>]<br>            &#125;,<br>            &#123;<br>                <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,<br>                <span class="hljs-string">&quot;properties&quot;</span>: &#123;<br>                    <span class="hljs-string">&quot;exceptRange&quot;</span>: &#123;<br>                        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span><br>                    &#125;<br>                &#125;,<br>                <span class="hljs-string">&quot;additionalProperties&quot;</span>: <span class="hljs-literal">false</span><br>            &#125;<br>        ]<br>			&#125;,<br>			<span class="hljs-comment">// create 返回一个对象，对象的格式是key对应一个回调方法；这个对象包含了ESLint在遍历JavaScript代码的AST树(ESTree定义的AST)时，用来访问节点的方法。</span><br>			<span class="hljs-comment">// context 当前执行eslint时的上下文对象，其中包含了各种相关数据，如eslint的配置信息、当前遍历节点的信息、报告问题的方法等；</span><br>			<span class="hljs-attr">create</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) &#123;<br>				<span class="hljs-keyword">return</span> &#123;<br>					<span class="hljs-comment">// callback functions</span><br>					<span class="hljs-title class_">ReturnStatement</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) &#123;<br>						<span class="hljs-comment">// at a ReturnStatement node while going down</span><br>					&#125;,<br>					<span class="hljs-comment">// at a function expression node while going up:</span><br>					<span class="hljs-string">&#x27;FunctionExpression:exit&#x27;</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">checkLastSegment</span> (node) &#123;<br>						<span class="hljs-comment">// report problem for function if last code path segment is reachable</span><br>					&#125;,<br>					<span class="hljs-string">&#x27;ArrowFunctionExpression:exit&#x27;</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">checkLastSegment</span> (node) &#123;<br>						<span class="hljs-comment">// report problem for function if last code path segment is reachable</span><br>					&#125;,<br>					<span class="hljs-attr">onCodePathStart</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">codePath, node</span>) &#123;<br>						<span class="hljs-comment">// at the start of analyzing a code path</span><br>					&#125;,<br>					<span class="hljs-attr">onCodePathEnd</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">codePath, node</span>) &#123;<br>						<span class="hljs-comment">// at the end of analyzing a code path</span><br>					&#125;<br>				&#125;;<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>使用方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  	<span class="hljs-string">&quot;plugins&quot;</span>: [<span class="hljs-string">&quot;myplugin&quot;</span>],<br>  	<span class="hljs-string">&quot;rules&quot;</span>: &#123;<br>    		<span class="hljs-string">&quot;myplugin/my-rule&quot;</span>: [<span class="hljs-number">2</span>, <span class="hljs-string">&quot;never&quot;</span>, &#123; <span class="hljs-string">&quot;exceptRange&quot;</span>: <span class="hljs-literal">true</span> &#125;],<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="2-1-1-1-rules的参数">2.1.1.1 rules的参数</h4>
+<p>rules的meta参数是填写一些基本信息，create参数中的value是用于执行检测AST规则的回调方法；</p>
+<p><strong>create的context参数：</strong></p>
+<ol>
+<li>id：在.eslintrc的rules中配置的规则名称，如上面使用方式中的<code>myplugin/my-rule</code>；</li>
+<li>options：在.eslintrc的rules中配置的规则参数，如上面例子的结果是：[“never”, {exceptRange: true}]</li>
+<li>report：用于发布警告或错误的，在回调中判断调用；<a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fdeveloper-guide%2Fworking-with-rules%23contextreport">具体参数</a>；</li>
+</ol>
+<p><strong>create的return对象：</strong></p>
+<ul>
+<li>如果一个 key 是个节点类型或 selector，在 <strong>向下</strong> 遍历树时，ESLint 调用 <strong>visitor</strong> 函数；</li>
+<li>如果一个 key 是个节点类型或 selector，并带有 <strong>:exit</strong>，在 <strong>向上</strong> 遍历树时，ESLint 调用 <strong>visitor</strong> 函数；</li>
+<li>如果一个 key 是个事件名字，ESLint 为<a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fdeveloper-guide%2Fcode-path-analysis">代码路径分析</a>调用 <strong>handler</strong> 函数；</li>
+</ul>
+<p><strong>节点类型：</strong> AST的节点类型；</p>
+<p>具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型原名称</th>
+<th>中文名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Program</td>
+<td>程序主体</td>
+<td>整段代码的主体</td>
+</tr>
+<tr>
+<td>2</td>
+<td>VariableDeclaration</td>
+<td>变量声明</td>
+<td>声明一个变量，例如 var let const</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FunctionDeclaration</td>
+<td>函数声明</td>
+<td>声明一个函数，例如 function</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ExpressionStatement</td>
+<td>表达式语句</td>
+<td>通常是调用一个函数，例如 console.log()</td>
+</tr>
+<tr>
+<td>5</td>
+<td>BlockStatement</td>
+<td>块语句</td>
+<td>包裹在 {} 块内的代码，例如 if (condition){var a = 1;}</td>
+</tr>
+<tr>
+<td>6</td>
+<td>BreakStatement</td>
+<td>中断语句</td>
+<td>通常指 break</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ContinueStatement</td>
+<td>持续语句</td>
+<td>通常指 continue</td>
+</tr>
+<tr>
+<td>8</td>
+<td>ReturnStatement</td>
+<td>返回语句</td>
+<td>通常指 return</td>
+</tr>
+<tr>
+<td>9</td>
+<td>SwitchStatement</td>
+<td>Switch 语句</td>
+<td>通常指 Switch Case 语句中的 Switch</td>
+</tr>
+<tr>
+<td>10</td>
+<td>IfStatement</td>
+<td>If 控制流语句</td>
+<td>控制流语句，通常指 if(condition){}else{}</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Identifier</td>
+<td>标识符</td>
+<td>标识，例如声明变量时 var identi = 5 中的 identi</td>
+</tr>
+<tr>
+<td>12</td>
+<td>CallExpression</td>
+<td>调用表达式</td>
+<td>通常指调用一个函数，例如 console.log()</td>
+</tr>
+<tr>
+<td>13</td>
+<td>BinaryExpression</td>
+<td>二进制表达式</td>
+<td>通常指运算，例如 1+2</td>
+</tr>
+<tr>
+<td>14</td>
+<td>MemberExpression</td>
+<td>成员表达式</td>
+<td>通常指调用对象的成员，例如 console 对象的 log 成员</td>
+</tr>
+<tr>
+<td>15</td>
+<td>ArrayExpression</td>
+<td>数组表达式</td>
+<td>通常指一个数组，例如 [1, 3, 5]</td>
+</tr>
+<tr>
+<td>16</td>
+<td>NewExpression</td>
+<td>New 表达式</td>
+<td>通常指使用 New 关键词</td>
+</tr>
+<tr>
+<td>17</td>
+<td>AssignmentExpression</td>
+<td>赋值表达式</td>
+<td>通常指将函数的返回值赋值给变量</td>
+</tr>
+<tr>
+<td>18</td>
+<td>UpdateExpression</td>
+<td>更新表达式</td>
+<td>通常指更新成员值，例如 i++</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Literal</td>
+<td>字面量</td>
+<td>字面量</td>
+</tr>
+<tr>
+<td>20</td>
+<td>BooleanLiteral</td>
+<td>布尔型字面量</td>
+<td>布尔值，例如 true false</td>
+</tr>
+<tr>
+<td>21</td>
+<td>NumericLiteral</td>
+<td>数字型字面量</td>
+<td>数字，例如 100</td>
+</tr>
+<tr>
+<td>22</td>
+<td>StringLiteral</td>
+<td>字符型字面量</td>
+<td>字符串，例如 vansenb</td>
+</tr>
+<tr>
+<td>23</td>
+<td>SwitchCase</td>
+<td>Case 语句</td>
+<td>通常指 Switch 语句中的 Case</td>
+</tr>
+</tbody>
+</table>
+<p>可以顺便看下vue的节点类型：<a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Fvue-eslint-parser%2Fblob%2Fmaster%2Fsrc%2Fast%2Fnodes.ts">github.com/vuejs/vue-e…</a></p>
+<p><strong>选择器（selector）</strong> ：是一个字符串，可用于匹配抽象语法树(AST)中的节点。这对于描述代码中的特定语法模式非常有用。选择器不限于对单个节点类型进行匹配。例如，选择器&quot;VariableDeclarator &gt; Identifier&quot;将匹配所有具有VariableDeclarator的Identifier。<a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fdeveloper-guide%2Fselectors">详情</a>；</p>
+<p><strong>事件</strong>：分析代码路径所触发的事件；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) &#123;<br>	<span class="hljs-keyword">return</span> &#123;<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * 这在分析代码路径的开始时被调用，此时，代码路径对象只有初始段。</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePath</span>&#125; <span class="hljs-variable">codePath</span> - The new code path.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ASTNode</span>&#125; <span class="hljs-variable">node</span> - The current node.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">void</span>&#125;</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-string">&quot;onCodePathStart&quot;</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">codePath, node</span>) &#123;<br>			<span class="hljs-comment">// do something with codePath</span><br>		&#125;,<br>		<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * 这在分析代码路径的末尾被调用。此时，代码路径对象已经完成。</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePath</span>&#125; <span class="hljs-variable">codePath</span> - The completed code path.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ASTNode</span>&#125; <span class="hljs-variable">node</span> - The current node.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">void</span>&#125;</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-string">&quot;onCodePathEnd&quot;</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">codePath, node</span>) &#123;<br>			<span class="hljs-comment">// do something with codePath</span><br>		&#125;,<br>		<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * 这在创建代码路径段时调用。</span><br><span class="hljs-comment">		 * 这意味着代码路径是分叉或合并的。</span><br><span class="hljs-comment">		 * 在这段时间内，该段具有先前的段，并且已被判断为可到达或不可到达。</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePathSegment</span>&#125; <span class="hljs-variable">segment</span> - The new code path segment.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ASTNode</span>&#125; <span class="hljs-variable">node</span> - The current node.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">void</span>&#125;</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-string">&quot;onCodePathSegmentStart&quot;</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">segment, node</span>) &#123;<br>			<span class="hljs-comment">// do something with segment</span><br>		&#125;,<br>		<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * 这是在代码路径段离开时调用的。</span><br><span class="hljs-comment">		 * 此时还没进入下个阶段。</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePathSegment</span>&#125; <span class="hljs-variable">segment</span> - The leaved code path segment.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ASTNode</span>&#125; <span class="hljs-variable">node</span> - The current node.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">void</span>&#125;</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-string">&quot;onCodePathSegmentEnd&quot;</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">segment, node</span>) &#123;<br>			<span class="hljs-comment">// do something with segment</span><br>		&#125;,<br>		<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * 在代码路径段被循环时调用的。</span><br><span class="hljs-comment">		 * 通常每段在创建时都有以前的段，</span><br><span class="hljs-comment">		 * Usually segments have each previous segments when created,</span><br><span class="hljs-comment">		 * but when looped, a segment is added as a new previous segment into a</span><br><span class="hljs-comment">		 * existing segment.</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * This is called when a code path segment was looped.Usually segments have each previous segments when created,but when looped, a segment is added as a new previous segment into aexisting segment.</span><br><span class="hljs-comment">		 *</span><br><span class="hljs-comment">		 * 当循环代码路径段时调用此函数。通常创建段时，段具有每个先前段，但循环时，段作为新的先前段添加到现有段中。</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePathSegment</span>&#125; <span class="hljs-variable">fromSegment</span> - A code path segment of source.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">CodePathSegment</span>&#125; <span class="hljs-variable">toSegment</span> - A code path segment of destination.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ASTNode</span>&#125; <span class="hljs-variable">node</span> - The current node.</span><br><span class="hljs-comment">		 * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">void</span>&#125;</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-string">&quot;onCodePathSegmentLoop&quot;</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">fromSegment, toSegment, node</span>) &#123;<br>			<span class="hljs-comment">// do something with segment</span><br>		&#125;<br>	&#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><a href="https://link.juejin.cn?target=http%3A%2F%2Feslint.cn%2Fdocs%2Fdeveloper-guide%2Fcode-path-analysis">eslint.cn/docs/develo…</a></p>
+<h3 id="2-1-2-定义环境">2.1.2 定义环境</h3>
+<p>环境：就是某一组配置，比如jquery里面所有的全局变量；</p>
+<p>插件的环境可定义以下对象：<br>
+<strong>globals：</strong> 同配置文件中的globals一样。<br>
+<strong>parserOptions：</strong> 同配置文件中的parserOptions一样。</p>
+<p>定义方式：必须暴露environments对象；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-comment">// 这是插件的index.js</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>    <span class="hljs-attr">environments</span>: &#123;<br>        <span class="hljs-attr">jquery</span>: &#123;<br>            <span class="hljs-attr">globals</span>: &#123;<br>                <span class="hljs-attr">$</span>: <span class="hljs-literal">false</span><br>            &#125;,<br>            <span class="hljs-attr">parserOptions</span>: &#123;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>使用方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  	<span class="hljs-string">&quot;plugins&quot;</span>: [<span class="hljs-string">&quot;myplugin&quot;</span>],<br>  	<span class="hljs-string">&quot;env&quot;</span>: &#123;<br>    		<span class="hljs-string">&quot;myplugin/jquery&quot;</span>: <span class="hljs-literal">true</span>,<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2-1-3-定义处理器">2.1.3 定义处理器</h3>
+<p>eslint只能检测js，如果是其他文件则需要配置自定义处理器；<br>
+定义方式：必须暴露processors，以文件后缀为key，包含以文件内容和文件名作为参数的函数，并返回一个要检测的字符串数组；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-comment">// 这是插件的index.js</span><br><span class="hljs-comment">// processor-name</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>	<span class="hljs-attr">processors</span>: &#123;<br>		<br>		<span class="hljs-comment">// 不同后缀名 (.js, .jsx, .html, etc.)</span><br>		<span class="hljs-string">&quot;.ext&quot;</span>: &#123;<br>			<span class="hljs-comment">// 获取文件的文本和文件名</span><br>			<span class="hljs-attr">preprocess</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">text, filename</span>) &#123;<br>				<br>				<span class="hljs-comment">// 在这里，您可以去掉任何非JS内容，并将其拆分为多个字符串以进行lint</span><br>				<span class="hljs-keyword">return</span> [string];  <span class="hljs-comment">// return an array of strings to lint</span><br>			&#125;,<br>			<br>			<span class="hljs-comment">// 获取Message[][]和文件名</span><br>			<span class="hljs-attr">postprocess</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">messages, filename</span>) &#123;<br>				<span class="hljs-comment">// `messages`参数是一个包含消息对象的二维数组，其中每个数组项的第一个参数包含了preprocess()方法返回的文本相关的lint消息数组</span><br>				<span class="hljs-comment">// postprocess 方法接受一个二维数组，包含检测消息和文件名。输入数组中的每一项都对应从 preprocess 方法返回的部分。preprocess 方法必须调整所有错误的位置，使其与原始的未处理的代码中的位置相对应，并将它们聚合成一个打平的数组并返回。</span><br>				<span class="hljs-comment">// 返回你想保留的一维数组</span><br>				<span class="hljs-keyword">return</span> messages[<span class="hljs-number">0</span>];<br>			&#125;,<br>			<br>			<span class="hljs-attr">supportsAutofix</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// (optional, defaults to false)</span><br>		&#125;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>使用方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript">javascript<br><br> 代码解读<br>复制代码<span class="hljs-comment">// 方式一：统一</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  	<span class="hljs-string">&quot;plugins&quot;</span>: [<span class="hljs-string">&quot;myplugin&quot;</span>],<br>  	<span class="hljs-string">&quot;processor&quot;</span>: <span class="hljs-string">&quot;myplugin/processor-name&quot;</span><br>&#125;<br><span class="hljs-comment">// 方式二：为特定类型的文件指定处理器</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  	<span class="hljs-string">&quot;plugins&quot;</span>: [<span class="hljs-string">&quot;myplugin&quot;</span>],<br>  	<span class="hljs-string">&quot;overrides&quot;</span>: [<br>        &#123;<br>            <span class="hljs-string">&quot;files&quot;</span>: [<span class="hljs-string">&quot;*.md&quot;</span>],<br>            <span class="hljs-string">&quot;processor&quot;</span>: <span class="hljs-string">&quot;a-plugin/markdown&quot;</span><br>        &#125;,<br>        &#123;<span class="hljs-comment">// 在 config 部分为命名代码块指定其他配置</span><br>            <span class="hljs-string">&quot;files&quot;</span>: [<span class="hljs-string">&quot;**/*.md/*.js&quot;</span>],<br>            <span class="hljs-string">&quot;rules&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;strict&quot;</span>: <span class="hljs-string">&quot;off&quot;</span><br>            &#125;<br>        &#125;<br>    ]<br><br></code></pre></td></tr></table></figure>
+<h1>工程化最佳使用方案</h1>
+<p>项目的工程化可以提升开发效率，减少一些容易避免的错误；下面推荐一些和eslint搭配的好用的工具：</p>
+<p>有时间找个项目试试水😃</p>
+<ol>
+<li>
+<p><a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fhusky">husky</a>：commit之前执行eslint命令，如果eslint没过，则commit失败；</p>
+</li>
+<li>
+<p><a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Flint-staged">lint-staged</a>：跑husky的hooks只针对拿到的staged文件；</p>
+</li>
+<li>
+<p><a href="https://link.juejin.cn?target=https%3A%2F%2Fprettier.io%2F">prettier</a>：修改代码风格，只管代码风格，不管一些低级问题；如果有一些配置和eslint冲突了，可以配合<a href="https://link.juejin.cn?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Feslint-plugin-prettier">eslint-plugin-prettier</a>和eslint一起使用；</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>eslint</div>
+      <div>http://example.com/2024/08/04/eslint/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 4, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/12/Typescript%20namespace/" title="Typescript namespace">
+                        <span class="hidden-mobile">Typescript namespace</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
