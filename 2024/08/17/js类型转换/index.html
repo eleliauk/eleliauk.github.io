@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="别骂了别骂了 在学了在学了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js类型转换">
+<meta property="og:url" content="http://example.com/2024/08/17/js%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="别骂了别骂了 在学了在学了">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-17T08:47:37.000Z">
+<meta property="article:modified_time" content="2024-08-17T09:40:24.772Z">
+<meta property="article:author" content="Shanyujia">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>js类型转换 - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="js类型转换"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-17 16:47" pubdate>
+          August 17, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">js类型转换</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1><code>Javascript</code>隐式类型转换</h1>
+<h2 id="类型都有什么">类型都有什么</h2>
+<ul>
+<li>Number</li>
+<li>String</li>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Object</li>
+<li>Symbol (ES2015)</li>
+<li>BigInt (ESNext stage 4)</li>
+</ul>
+<p>是不是感觉还有Function，毕竟能用<strong>typeof</strong>获取到？不，函数、数组都是Object的子类型。</p>
+<p>类型分为<code>基本类型</code>和<code>复合类型</code>两种，除了对象，其它都是基本类型</p>
+<h3 id="接下来有请重量级嘉宾">接下来有请重量级嘉宾</h3>
+<h2 id="To-Primitive">To Primitive</h2>
+<p>结构：toPrimitive(input: <strong>any</strong>, preferedType?: <strong>‘string’ |‘number’</strong>)<br>
+作用：内部方法，将任意值转换成原始值</p>
+<p>转换规则：</p>
+<ol>
+<li>如果是基本类型，则不处理。</li>
+<li>调用<code>valueOf()</code>，并确保返回值是基本类型。</li>
+<li>如果没有valueOf这个方法或者valueOf返回的类型不是基本类型，那么对象会继续调用<code>toString()</code>方法。</li>
+<li>如果同时没有valueOf和toString方法，或者返回的都不是基本类型，那么直接抛出<code>TypeError</code>异常。</li>
+</ol>
+<blockquote>
+<p>注意：如果<strong>preferedType=string</strong>，那么2、3顺序调换</p>
+</blockquote>
+<p>接着，我们看下各个对象的转换实现</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>valueOf()</th>
+<th>toString()</th>
+<th>默认 preferedType</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object</td>
+<td>原值</td>
+<td>“[object Object]”</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>Function</td>
+<td>原值</td>
+<td>“function xyz() {…}”</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>Array</td>
+<td>原值</td>
+<td>“x,y,z”</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>数字</td>
+<td>“Sat May 22 2021…”</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>数组的toString()可以等效为<code>join(&quot;,&quot;)</code>，遇到null, undefined都被忽略，遇到symbol直接报错，遇到无法ToPrimitive的对象也报错。</li>
+<li>使用<code>模板字符串</code>或者使用<code>String(...)</code>包装时，preferedType=string，即优先调用 .toString()。</li>
+<li>使用<code>减法</code>或者<code>Number(...)</code>包装时，preferedType=number，即优先调用<code>.valueOf()</code></li>
+</ol>
+<p>接下来看几个🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[<span class="hljs-number">1</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-number">2</span>].<span class="hljs-title function_">toString</span>() === <span class="hljs-string">&#x27;1,,,2&#x27;</span>;<br><br><span class="hljs-comment">// Uncaught TypeError: Cannot convert a Symbol value to a string</span><br>[<span class="hljs-number">1</span>, <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">&#x27;x&#x27;</span>)].<span class="hljs-title function_">toString</span>()<br><br><span class="hljs-comment">// Uncaught TypeError: Cannot convert object to primitive value</span><br>[<span class="hljs-number">1</span>, <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-literal">null</span>)].<span class="hljs-title function_">toString</span>()<br></code></pre></td></tr></table></figure>
+<h2 id="ToNumber">ToNumber</h2>
+<p>一些特殊值转为数字的例子，等下要用到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;0&quot;</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;&quot;</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;   &quot;</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;\n&quot;</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;\t&quot;</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-literal">null</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-literal">false</span>) === <span class="hljs-number">0</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-literal">true</span>) === <span class="hljs-number">1</span>;<br><span class="hljs-title class_">Number</span>(<span class="hljs-literal">undefined</span>); <span class="hljs-comment">// NaN</span><br><span class="hljs-title class_">Number</span>(<span class="hljs-string">&quot;x&quot;</span>); <span class="hljs-comment">// NaN</span><br></code></pre></td></tr></table></figure>
+<h2 id="加减法-±">加减法 ±</h2>
+<p>加减法运算中遵循了一些隐式转换规则：</p>
+<h5 id="遇到对象先执行ToPrimitive转换为基本类型">遇到对象先执行ToPrimitive转换为基本类型</h5>
+<ul>
+<li><strong>加法</strong>（+）运算，preferedType是默认值</li>
+<li><strong>减法</strong>（-）运算，preferedType是Number</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// &#123;&#125;.toString() === &quot;[object Object]&quot;</span><br><span class="hljs-number">1</span> + &#123;&#125; === <span class="hljs-string">&quot;1[object Object]&quot;</span><br><br><span class="hljs-comment">// [2, 3].toString() === &quot;2,3&quot;</span><br><span class="hljs-number">1</span> + [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] === <span class="hljs-string">&quot;12,3&quot;</span><br>[<span class="hljs-number">1</span>] + [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>] === <span class="hljs-string">&quot;1,2,3&quot;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span>(<span class="hljs-params"></span>) &#123;&#125;<br><span class="hljs-comment">// test.toString() === &quot;function test() &#123;&#125;&quot;</span><br><span class="hljs-number">10</span> + test === <span class="hljs-string">&quot;10function test() &#123;&#125;&quot;</span><br></code></pre></td></tr></table></figure>
+<h5 id="非字符串-非字符串，两边都会先ToNumber">非字符串 + 非字符串，两边都会先ToNumber</h5>
+<p>这里的非字符串都是指基本类型，因为对象会先执行ToPrimitive变成基础类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1</span> + <span class="hljs-literal">true</span> === <span class="hljs-number">2</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">false</span> === <span class="hljs-number">1</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">null</span> === <span class="hljs-number">1</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">null</span> + <span class="hljs-literal">false</span> + <span class="hljs-number">1</span> === <span class="hljs-number">2</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">undefined</span> <span class="hljs-comment">// NaN</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">undefined</span> + <span class="hljs-literal">false</span> <span class="hljs-comment">// NaN</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">undefined</span> + [<span class="hljs-number">1</span>] === <span class="hljs-string">&quot;NaN1&quot;</span><br><span class="hljs-number">1</span> + <span class="hljs-literal">undefined</span> + <span class="hljs-string">&quot;1&quot;</span> === <span class="hljs-string">&quot;NaN1&quot;</span><br><span class="hljs-literal">null</span> + <span class="hljs-literal">null</span> === <span class="hljs-number">0</span><br><br><span class="hljs-comment">// 1 + false</span><br><span class="hljs-number">1</span> + ![] === <span class="hljs-number">1</span><br><span class="hljs-number">1</span> + !&#123;&#125; === <span class="hljs-number">1</span><br>!&#123;&#125; + !&#123;&#125; === <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p><strong>1 + undefined + [1] === “NaN1”</strong></p>
+<p>​	•	<strong>1 + undefined</strong> <strong>部分</strong>：</p>
+<p>​	•	如前所述，1 + undefined 的结果是 NaN。</p>
+<p>​	•	<strong>NaN + [1]</strong>：</p>
+<p>​	•	[1] 是一个数组对象，当数组对象与非字符串类型相加时，JavaScript会调用它的 toString() 方法，将数组转换为字符串。</p>
+<p>​	•	[1].toString() 返回 “1”。</p>
+<p>​	•	因此，NaN + [1] 等同于 NaN + “1”。</p>
+<p>​	•	NaN 被隐式转换为字符串 “NaN”，然后与 “1” 进行字符串连接。</p>
+<h5 id="任意值-任意值，一律执行ToNumber，进行数字运算。">任意值 - 任意值，一律执行ToNumber，进行数字运算。</h5>
+<p>此时的 preferedType === number</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">3</span> - <span class="hljs-number">1</span> === <span class="hljs-number">2</span><br><span class="hljs-number">3</span> - <span class="hljs-string">&#x27;1&#x27;</span> === <span class="hljs-number">2</span><br><span class="hljs-string">&#x27;3&#x27;</span> - <span class="hljs-number">1</span> === <span class="hljs-number">2</span><br><span class="hljs-string">&#x27;3&#x27;</span> - <span class="hljs-string">&#x27;1&#x27;</span> - <span class="hljs-string">&#x27;2&#x27;</span> === <span class="hljs-number">0</span><br><br><span class="hljs-comment">// [].toString() =&gt; &quot;&quot; =&gt; Number(...) =&gt; 0</span><br><span class="hljs-number">3</span> - [] === <span class="hljs-number">3</span><br><br><span class="hljs-comment">// &#123;&#125;.toString() =&gt; &quot;[object Object]&quot; =&gt; Number(...) =&gt; NaN</span><br><span class="hljs-number">3</span> - &#123;&#125; <span class="hljs-comment">// NaN</span><br><br><span class="hljs-comment">// Date的默认preferedType === string</span><br><span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();<br>date.<span class="hljs-property">toString</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-string">&#x27;str&#x27;</span>;<br>date.<span class="hljs-property">valueOf</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">123</span>;<br><br>date + <span class="hljs-number">1</span> === <span class="hljs-string">&#x27;str1&#x27;</span>;<br>date - <span class="hljs-number">1</span> = <span class="hljs-number">122</span>;<br></code></pre></td></tr></table></figure>
+<p>再看<code>[] + &#123;&#125;</code>，这样是不是就easy</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[].<span class="hljs-title function_">toString</span>() === <span class="hljs-string">&quot;&quot;</span>;<br>&#123;&#125;.<span class="hljs-title function_">toString</span>() === <span class="hljs-string">&quot;[object Object]&quot;</span>;<br><br>[] + &#123;&#125; === <span class="hljs-string">&quot;[object Object]&quot;</span>;<br></code></pre></td></tr></table></figure>
+<h5 id="在最前面时可能不再是对象">{} 在最前面时可能不再是对象</h5>
+<p>不是对象是什么？别急，看看经典的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&#123;&#125; + [] === <span class="hljs-number">0</span>;<br>&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span> &#125; + [] === <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<p>这啥玩意？说好的&quot;[object Object]&quot;呢？</p>
+<p>好吧，这是<code>&#123;&#125;</code>其实代表的是<strong>代码块</strong>，最后就变成了<code>+ []</code>，根据前面的原则，数组先被转换成字符串<code>&quot;&quot;</code>，接着因为+x的运算，字符串被转成数字<code>0</code>。</p>
+<p>那 { a: 2 } 总该是对象了吧？其实这时候<code>a</code>不是代表对象属性，而是被当成了标签（label），标签这东西IE6就已经有了。所以如果我们写成对象是会报错的，逗号要改成分号才能通过编译。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Uncaught SyntaxError: Unexpected token &#x27;:&#x27;</span><br>&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">3</span> &#125; + []<br><br><span class="hljs-comment">// 分号OK</span><br>&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>; <span class="hljs-attr">b</span>: <span class="hljs-number">3</span> &#125; + [] === <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<h5 id="symbol不能加减">symbol不能加减</h5>
+<p>如果在表达式中有symbol类型，那么就会直接报错。比如<code>1 + Symbol(&quot;x&quot;)</code>报错如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Uncaught TypeError: Cannot <span class="hljs-built_in">convert</span> <span class="hljs-keyword">a</span> Symbol <span class="hljs-built_in">value</span> <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> <span class="hljs-built_in">number</span><br></code></pre></td></tr></table></figure>
+<h2 id="宽松相等">宽松相等 ==</h2>
+<p>相等于全等都需要对类型进行判断，当类型不一致时，宽松相等会触发隐式转换。下面介绍规则：</p>
+<h5 id="对象-对象，类型一致则不做转换">对象 == 对象，类型一致则不做转换</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&#123;&#125; != &#123;&#125;<br>[] != &#123;&#125;<br>[] != []<br></code></pre></td></tr></table></figure>
+<h5 id="对象-基本值，对象先执行ToPrimitive转换为基本类型">对象 == 基本值，对象先执行ToPrimitive转换为基本类型</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 小心代码块</span><br><span class="hljs-string">&quot;[object Object]&quot;</span> == &#123;&#125;<br>[] == <span class="hljs-string">&quot;&quot;</span><br>[<span class="hljs-number">1</span>] == <span class="hljs-string">&quot;1&quot;</span><br>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>] == <span class="hljs-string">&quot;1,2&quot;</span><br></code></pre></td></tr></table></figure>
+<h5 id="布尔值-非布尔值，布尔值先转换成数字，再按数字规则操作">布尔值 == 非布尔值，布尔值先转换成数字，再按数字规则操作</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// [] =&gt; &quot;&quot; =&gt; Number(...) =&gt; 0</span><br><span class="hljs-comment">// false =&gt; 0</span><br>[] == <span class="hljs-literal">false</span><br><br><span class="hljs-comment">// [1] =&gt; &quot;1&quot; =&gt; 1</span><br><span class="hljs-comment">// true =&gt; 1</span><br>[<span class="hljs-number">1</span>] == <span class="hljs-literal">true</span><br><br><span class="hljs-comment">// [1,2] =&gt; &quot;1,2&quot; =&gt; NaN</span><br><span class="hljs-comment">// true =&gt; 1</span><br>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>] != <span class="hljs-literal">true</span><br><br><span class="hljs-string">&quot;0&quot;</span> == <span class="hljs-literal">false</span><br><span class="hljs-string">&quot;&quot;</span> == <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<h5 id="数字-字符串，字符串ToNumber转换成数字">数字 == 字符串，字符串ToNumber转换成数字</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-string">&quot;2&quot;</span> == <span class="hljs-number">2</span><br>[] == <span class="hljs-number">0</span><br>[<span class="hljs-number">1</span>] == <span class="hljs-number">1</span><br><span class="hljs-comment">// [1,2].toString() =&gt; &quot;1,2&quot; =&gt; Number(...) =&gt; NaN</span><br>[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>] != <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<h5 id="null、undefined、symbol">null、undefined、symbol</h5>
+<p>null、undefined与任何非自身的值对比结果都是false，但是<code>null == undefined</code> 是一个特例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-literal">null</span> == <span class="hljs-literal">null</span><br><span class="hljs-literal">undefined</span> == <span class="hljs-literal">undefined</span><br><span class="hljs-literal">null</span> == <span class="hljs-literal">undefined</span><br><br><span class="hljs-literal">null</span> != <span class="hljs-number">0</span><br><span class="hljs-literal">null</span> != <span class="hljs-literal">false</span><br><br><span class="hljs-literal">undefined</span> != <span class="hljs-number">0</span><br><span class="hljs-literal">undefined</span> != <span class="hljs-literal">false</span><br><br><span class="hljs-title class_">Symbol</span>(<span class="hljs-string">&#x27;x&#x27;</span>) != <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">&#x27;x&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="对比">对比 &lt; &gt;</h2>
+<p>对比不像相等，可以严格相等（===）防止类型转换，对比一定会存在隐式类型转换。</p>
+<h5 id="对象总是先执行ToPrimitive为基本类型">对象总是先执行ToPrimitive为基本类型</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">[] &lt; [] <span class="hljs-comment">// false</span><br><span class="hljs-comment">// =&gt; &quot;&quot; &lt; &quot;&quot; </span><br>[] &lt;= &#123;&#125; <span class="hljs-comment">// true</span><br><span class="hljs-string">&quot;&quot;</span> &lt;= <span class="hljs-string">&quot;[object Object]&quot;</span> <br>(&#123;&#125; &lt; &#123;&#125;) <span class="hljs-comment">// false</span><br>(&#123;&#125; &lt;= &#123;&#125;) <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>后面这两个还挺有说法的</p>
+<p><strong>{} &lt; {}</strong></p>
+<p>​	•	<strong>代码块 vs 表达式</strong>：</p>
+<p>​	•	在没有括号的情况下，{} 被解释为一个代码块而不是对象字面量。</p>
+<p>​	•	因此，{} &lt; {} 被解释为一个空代码块 &lt; 一个对象字面量的比较。</p>
+<p>​	•	由于第一个 {} 被当作代码块，&lt; 运算符之后的 {} 实际上是一个语法错误，因为它看起来像一个对象字面量的定义，但没有有效的上下文。</p>
+<p><strong>实际上</strong>，{} &lt; {} 在大多数情况下会导致语法错误，但在某些环境中，可能解释为 false，因为 JavaScript 不能比较两个代码块。</p>
+<p>加上括号就是</p>
+<p>({} &lt; {})：{} 被解释为对象字面量，并且 () 括起来确保 {} &lt; {} 作为对象字面量被正确解析。</p>
+<p>在这种情况下，{} 转换为 “[object Object]”，而 “[object Object]” &lt; “[object Object]” 为 false，因为任何两个相同的字符串比较都是 false。</p>
+<p><strong>{} &lt;= {}</strong></p>
+<p>​	•	<strong>代码块 vs 表达式</strong>：</p>
+<p>​	•	和上面一样，{} &lt;= {} 被解释为一个代码块 &lt; 一个对象字面量的比较。</p>
+<p>​	•	由于 &lt;= 运算符和 &lt; 运算符一样，可能导致语法错误或无效的比较。</p>
+<p><strong>实际上</strong>，{} &lt;= {} 也可能会导致语法错误或被解释为 true 在某些特定的解析环境中，虽然理论上它是不被允许的。</p>
+<h5 id="任何一边出现非字符串的值，则一律转换成数字做对比">任何一边出现非字符串的值，则一律转换成数字做对比</h5>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// [&quot;06&quot;] =&gt; &quot;06&quot; =&gt; 6</span><br>[<span class="hljs-string">&quot;06&quot;</span>] &lt; <span class="hljs-number">2</span>   <span class="hljs-comment">// false </span><br><br>[<span class="hljs-string">&quot;06&quot;</span>] &lt; <span class="hljs-string">&quot;2&quot;</span> <span class="hljs-comment">// true</span><br>[<span class="hljs-string">&quot;06&quot;</span>] &gt; <span class="hljs-number">2</span>   <span class="hljs-comment">// true</span><br><br><span class="hljs-number">5</span> &gt; <span class="hljs-literal">null</span>     <span class="hljs-comment">// true</span><br>-<span class="hljs-number">1</span> &lt; <span class="hljs-literal">null</span>    <span class="hljs-comment">// true</span><br><span class="hljs-number">0</span> &lt;= <span class="hljs-literal">null</span>    <span class="hljs-comment">// true</span><br><br><span class="hljs-number">0</span> &lt;= <span class="hljs-literal">false</span>   <span class="hljs-comment">// true</span><br><span class="hljs-number">0</span> &lt; <span class="hljs-literal">false</span>    <span class="hljs-comment">// false</span><br><br><span class="hljs-comment">// undefined =&gt; Number(...) =&gt; NaN</span><br><span class="hljs-number">5</span> &gt; <span class="hljs-literal">undefined</span> <span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+<h2 id="To-Boolean">To Boolean</h2>
+<p>既然是总结，那么可能还要讲一下布尔值的隐式转换。这个还是比较常见的，我们来看下有哪些地方会使用到：</p>
+<ul>
+<li>if(…)</li>
+<li>for(;…😉</li>
+<li>while(…)</li>
+<li>do while(…)</li>
+<li>… ? :</li>
+<li>||</li>
+<li>&amp;&amp;</li>
+</ul>
+<p>既然知道会转换，那么什么值是真值，什么值是假值呢？换个思路，假值以外都是真值。看看哪些是<strong>假值</strong>：</p>
+<ul>
+<li>undefined</li>
+<li>null</li>
+<li>false</li>
+<li>+0</li>
+<li>-0</li>
+<li>NaN</li>
+<li>“”</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>对象都需要先ToPrimitive转成基本类型，除非是宽松相等（==）时两个对象做对比。</p>
+<ul>
+<li>+   没有字符串就全转数字</li>
+<li>-   全转数字，preferedType===Number</li>
+<li>==  同类型不转，数字优先，布尔全转数字，null、undefined、symbol不转</li>
+<li>&lt;&gt;  数字优先，除非两边都是字符串</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Javascript/" class="print-no-link">#Javascript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>js类型转换</div>
+      <div>http://example.com/2024/08/17/js类型转换/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 17, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/04/eslint/" title="eslint">
+                        <span class="hidden-mobile">eslint</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
