@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="祝小登们好运喽">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024年前端组第一次机试题目">
+<meta property="og:url" content="http://example.com/2024/10/02/2024%E5%89%8D%E7%AB%AF%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9C%BA%E8%AF%95/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="祝小登们好运喽">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/source/img/house.png">
+<meta property="og:image" content="http://example.com/source/img/%E8%A1%A8%E5%8D%95.gif">
+<meta property="og:image" content="http://example.com/source/img/%E5%BC%B9%E7%AA%97.gif">
+<meta property="og:image" content="http://example.com/source/img/%E6%89%93%E5%AD%97%E6%9C%BA.gif">
+<meta property="og:image" content="http://example.com/source/img/%E8%B6%85%E7%BA%A7%E6%97%A0%E6%95%8C%E7%9A%84%E5%A4%A7%E6%97%8B%E8%BD%AC.gif">
+<meta property="og:image" content="http://example.com/source/img/%E5%B0%8F%E7%BA%A2%E7%82%B9.png">
+<meta property="og:image" content="http://example.com/source/img/nav.gif">
+<meta property="og:image" content="http://example.com/source/img/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%AF%BC%E8%88%AA%E6%A0%8F.gif">
+<meta property="og:image" content="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/01/02/addtwonumber1.jpg">
+<meta property="article:published_time" content="2024-10-02T05:12:28.000Z">
+<meta property="article:modified_time" content="2024-10-04T10:40:36.752Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/source/img/house.png">
+  
+  
+  
+  <title>2024年前端组第一次机试题目 - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2024年前端组第一次机试题目"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-02 13:12" pubdate>
+          October 2, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2024年前端组第一次机试题目</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>2024年前端组第一次机试题目</h1>
+<h2 id="说在前面的一些悄悄话">说在前面的一些悄悄话</h2>
+<blockquote>
+<p>欢迎大家来参加前端机试, 相信能来参加的你一定是对自己负责的好同学! 请发挥你的聪明才智, 展示你的近期所学, 全力完成下面的题目吧!</p>
+<p>⚠️: 不能在搜索引擎上直接搜索题目, 例如: xxxx效果如何实现? 如有发现, 学长学姐会对你扣分哦</p>
+<p>但是有什么突然忘记了可以呼叫老东西 老东西会根据情况进行一些提示</p>
+</blockquote>
+<h2 id="1-神奇的小房子🏠">1.神奇的小房子🏠</h2>
+<p>伟大的夏大建筑师现在想实现一个小房子 但是夏总想让你帮他来完成捏</p>
+<p>效果图如下:</p>
+<p><img src="/source/img/house.png" srcset="/img/loading.gif" lazyload alt="hosue"></p>
+<p>PS: 别问为什么没有窗户😡！</p>
+<h2 id="2-码农？-果农！">2.码农？ 果农！</h2>
+<p>如下有一个水果的表格需要你去完成</p>
+<p><img src="/source/img/%E8%A1%A8%E5%8D%95.gif" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<blockquote>
+<p>注意事项⚠️</p>
+<ul>
+<li>在鼠标触控表格是有颜色的变化  颜色你自己随意喽 别太丑就好喽</li>
+</ul>
+</blockquote>
+<p>效果如下：</p>
+<h2 id="3-弹窗领域大神">3.弹窗领域大神</h2>
+<p>超级无敌的学长让你帮他实现一个弹窗特效</p>
+<p><img src="/source/img/%E5%BC%B9%E7%AA%97.gif" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<blockquote>
+<p>要求💊</p>
+<ul>
+<li>触碰到按钮时候是有颜色变化的</li>
+<li>退出弹窗时候也是有颜色变化的</li>
+</ul>
+</blockquote>
+<h2 id="4-超级无敌的打字机特效">4.超级无敌的打字机特效</h2>
+<p>打字动画是很常见的一种动画，实现以下打字动画的效果，要求时隔0.5s出现一个字，全部字打完后清空，循环打印</p>
+<p><img src="/source/img/%E6%89%93%E5%AD%97%E6%9C%BA.gif" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<p>提示：光标可用右边框实现</p>
+<h2 id="5-超级无敌的托马斯大回旋">5.超级无敌的托马斯大回旋</h2>
+<p>这个logo是哥们mini项目的logo，也是出自于本人的设计组朋友（快来加入木犀，以后和朋友一起美美写项目<br>
+鼠标移入时顺时针旋转360度，移出时逆时针旋转360度</p>
+<p><img src="/source/img/%E8%B6%85%E7%BA%A7%E6%97%A0%E6%95%8C%E7%9A%84%E5%A4%A7%E6%97%8B%E8%BD%AC.gif" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<h2 id="6-万恶的小红点😡">6.万恶的小红点😡</h2>
+<p>给html代码，要求html代码不变（可以自行添加class属性）还原一下效果，方法不限，并在消息通知的图标上添加小红点，里面数字不限，但要求数字在原点正中央</p>
+<p><img src="/source/img/%E5%B0%8F%E7%BA%A2%E7%82%B9.png" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<h2 id="7-神奇的按钮">7.神奇的按钮</h2>
+<blockquote>
+<p><em>完成回到顶部按钮以及页脚的填充</em></p>
+<p>​    <em>要求：</em></p>
+<p>​    <em>1：页脚居中且不随页面滑动</em></p>
+<p>​    <em>2：回到顶部:图片随页面滑动，距离顶部和底部底部某一距离时不再随页面滑动</em></p>
+</blockquote>
+<p><img src="/source/img/nav.gif" srcset="/img/loading.gif" lazyload alt="nav"></p>
+<h2 id="8-经典的响应式布局">8.经典的响应式布局</h2>
+<p>实现经典开局</p>
+<p>效果如下</p>
+<p><img src="/source/img/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%AF%BC%E8%88%AA%E6%A0%8F.gif" srcset="/img/loading.gif" lazyload alt="biaoge"></p>
+<h2 id="9-算法-启动！！！">9.算法 启动！！！</h2>
+<h3 id="24小登的题捏">24小登的题捏</h3>
+<p>请你编写一个函数，它接收一个函数数组 <code>[f1, f2, f3，…， fn]</code> ，并返回一个新的函数 <code>fn</code> ，它是函数数组的 <strong>复合函数</strong> 。</p>
+<p><code>[f(x)， g(x)， h(x)]</code> 的 <strong>复合函数</strong> 为 <code>fn(x) = f(g(h(x)))</code> 。</p>
+<p>一个空函数列表的 <strong>复合函数</strong> 是 <strong>恒等函数</strong> <code>f(x) = x</code> 。</p>
+<p>你可以假设数组中的每个函数接受一个整型参数作为输入，并返回一个整型作为输出。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：functions = [<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x + <span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x * x, <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">2</span> * x], x = <span class="hljs-number">4</span><br>输出：<span class="hljs-number">65</span><br>解释：<br>从右向左计算......<br><span class="hljs-title class_">Starting</span> <span class="hljs-keyword">with</span> x = <span class="hljs-number">4.</span><br><span class="hljs-number">2</span> * (<span class="hljs-number">4</span>) = <span class="hljs-number">8</span><br>(<span class="hljs-number">8</span>) * (<span class="hljs-number">8</span>) = <span class="hljs-number">64</span><br>(<span class="hljs-number">64</span>) + <span class="hljs-number">1</span> = <span class="hljs-number">65</span><br></code></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：functions = [<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">10</span> * x, <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">10</span> * x, <span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> <span class="hljs-number">10</span> * x], x = <span class="hljs-number">1</span><br>输出：<span class="hljs-number">1000</span><br>解释：<br>从右向左计算......<br><span class="hljs-number">10</span> * (<span class="hljs-number">1</span>) = <span class="hljs-number">10</span><br><span class="hljs-number">10</span> * (<span class="hljs-number">10</span>) = <span class="hljs-number">100</span><br><span class="hljs-number">10</span> * (<span class="hljs-number">100</span>) = <span class="hljs-number">1000</span><br></code></pre></td></tr></table></figure>
+<p><strong>示例 3：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：functions = [], x = <span class="hljs-number">42</span><br>输出：<span class="hljs-number">42</span><br>解释：<br>空函数列表的复合函数就是恒等函数<br></code></pre></td></tr></table></figure>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>-1000 &lt;= x &lt;= 1000</code></li>
+<li><code>0 &lt;= functions.length &lt;= 1000</code></li>
+<li>所有函数都接受并返回一个整型</li>
+</ul>
+<h4 id="目前已经有的结构">目前已经有的结构</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">Function[]</span>&#125; <span class="hljs-variable">functions</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-type">Function</span>&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">var</span> compose = <span class="hljs-keyword">function</span>(<span class="hljs-params">functions</span>) &#123;<br>    <br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) &#123;<br>        <br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * const fn = compose([x =&gt; x + 1, x =&gt; 2 * x])</span><br><span class="hljs-comment"> * fn(4) // 9</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+<h3 id="23同学的题捏（24选做-做出来加分捏）">23同学的题捏（24选做 做出来加分捏）</h3>
+<p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<h4 id="目前已经有的结构-v2">目前已经有的结构</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * function ListNode(val, next) &#123;</span><br><span class="hljs-comment"> *     this.val = (val===undefined ? 0 : val)</span><br><span class="hljs-comment"> *     this.next = (next===undefined ? null : next)</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ListNode</span>&#125; <span class="hljs-variable">l1</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ListNode</span>&#125; <span class="hljs-variable">l2</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-type">ListNode</span>&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">var</span> addTwoNumbers = <span class="hljs-keyword">function</span>(<span class="hljs-params">l1, l2</span>) &#123;<br><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong>示例1</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2021/01/02/addtwonumber1.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：l1 = [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>], l2 = [<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>]<br>输出：[<span class="hljs-number">7</span>,<span class="hljs-number">0</span>,<span class="hljs-number">8</span>]<br>解释：<span class="hljs-number">342</span> + <span class="hljs-number">465</span> = <span class="hljs-number">807.</span><br></code></pre></td></tr></table></figure>
+<p><strong>示例 2：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：l1 = [<span class="hljs-number">0</span>], l2 = [<span class="hljs-number">0</span>]<br>输出：[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+<p><strong>示例 3：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">输入：l1 = [<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>], l2 = [<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>]<br>输出：[<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">9</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>] <br></code></pre></td></tr></table></figure>
+<p><strong>提示：</strong></p>
+<ul>
+<li>每个链表中的节点数在范围 <code>[1, 100]</code> 内</li>
+<li><code>0 &lt;= Node.val &lt;= 9</code></li>
+<li>题目数据保证列表表示的数字不含前导零</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2024年前端组第一次机试题目</div>
+      <div>http://example.com/2024/10/02/2024前端第一次机试/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 2, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/29/YOLO%E5%88%9D%E4%BD%93%E9%AA%8C/" title="YOLO初体验">
+                        <span class="hidden-mobile">YOLO初体验</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
