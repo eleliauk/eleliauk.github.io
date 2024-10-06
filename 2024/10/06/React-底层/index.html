@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="开始看点好东西了😁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React技术揭秘——理念">
+<meta property="og:url" content="http://example.com/2024/10/06/React-%E5%BA%95%E5%B1%82/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="开始看点好东西了😁">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://react.iamkasong.com/img/legacy-move.gif">
+<meta property="og:image" content="https://react.iamkasong.com/img/concurrent-mov.gif">
+<meta property="og:image" content="https://react.iamkasong.com/img/v15.png">
+<meta property="og:image" content="https://react.iamkasong.com/img/dist.png">
+<meta property="article:published_time" content="2024-10-06T04:15:21.000Z">
+<meta property="article:modified_time" content="2024-10-06T05:17:28.311Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://react.iamkasong.com/img/legacy-move.gif">
+  
+  
+  
+  <title>React技术揭秘——理念 - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="React技术揭秘——理念"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-06 12:15" pubdate>
+          October 6, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">React技术揭秘——理念</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>React理念</h1>
+<blockquote>
+<p>感觉就是看了看大概的系统理念 里面还有好多api什么的还没具体去看🤔</p>
+</blockquote>
+<h2 id="React理念">React理念</h2>
+<p>我们可以从官网看到<code>React</code>的理念：</p>
+<blockquote>
+<p>我们认为，React 是用 JavaScript 构建<strong>快速响应</strong>的大型 Web 应用程序的首选方式</p>
+</blockquote>
+<p>可见，关键是实现<code>快速响应</code>。那么制约<code>快速响应</code>的因素是什么呢？</p>
+<p>我们日常使用 App，浏览网页时，有两类场景会制约<code>快速响应</code>：</p>
+<ul>
+<li>当遇到大计算量的操作或者设备性能不足使页面掉帧，导致卡顿。</li>
+<li>发送网络请求后，由于需要等待数据返回才能进一步操作导致不能快速响应。</li>
+</ul>
+<p>这两类场景可以概括为：</p>
+<ul>
+<li>CPU 的瓶颈</li>
+<li>IO 的瓶颈</li>
+</ul>
+<p><code>React</code>是如何解决这两个瓶颈的呢？🤔</p>
+<h3 id="CPU的瓶颈">CPU的瓶颈</h3>
+<p>当项目变得庞大、组件数量繁多时，就容易遇到 CPU 的瓶颈。</p>
+<p>考虑如下 🌰，我们向视图中渲染 3000 个<code>li</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> len = <span class="hljs-number">3000</span>;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">      &#123;Array(len)</span><br><span class="language-xml">        .fill(0)</span><br><span class="language-xml">        .map((_, i) =&gt; (</span><br><span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>&#123;i&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        ))&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>  );<br>&#125;<br><br><span class="hljs-keyword">const</span> rootEl = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#root&quot;</span>);<br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">render</span>(<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>, rootEl);<br></code></pre></td></tr></table></figure>
+<p>主流浏览器刷新频率为 60Hz，即每（1000ms / 60Hz）16.6ms 浏览器刷新一次。</p>
+<p>我们知道，JS 可以操作 DOM，<code>GUI渲染线程</code>与<code>JS线程</code>是互斥的。所以<strong>JS 脚本执行</strong>和<strong>浏览器布局、绘制</strong>不能同时执行。</p>
+<p>在每 16.6ms 时间内，需要完成如下工作：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">JS脚本执行 -----  样式布局 ----- 样式绘制<br></code></pre></td></tr></table></figure>
+<p>当 JS 执行时间过长，超出了 16.6ms，这次刷新就没有时间执行<strong>样式布局</strong>和<strong>样式绘制</strong>了。</p>
+<p>在 Demo 中，由于组件数量繁多（3000 个），JS 脚本执行时间过长，页面掉帧，造成卡顿。</p>
+<p>如何解决这个问题呢？</p>
+<p>答案是：在浏览器每一帧的时间中，预留一些时间给 JS 线程，<code>React</code>利用这部分时间更新组件（可以看到，在<a target="_blank" rel="noopener" href="https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L119">源码</a>中，预留的初始时间是 5ms）。</p>
+<p>当预留的时间不够用时，<code>React</code>将线程控制权交还给浏览器使其有时间渲染 UI，<code>React</code>则等待下一帧时间到来继续被中断的工作。</p>
+<blockquote>
+<p>这种将长任务分拆到每一帧中，像蚂蚁搬家一样一次执行一小段任务的操作，被称为<code>时间切片</code>（time slice）</p>
+</blockquote>
+<p>接下来我们开启<code>Concurrent Mode</code>（目前我知道开启后会启用<code>时间切片</code>😭）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 通过使用ReactDOM.unstable_createRoot开启Concurrent Mode</span><br><span class="hljs-comment">// ReactDOM.render(&lt;App/&gt;, rootEl);</span><br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">unstable_createRoot</span>(rootEl).<span class="hljs-title function_">render</span>(<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span>);<br></code></pre></td></tr></table></figure>
+<p>此时我们的长任务被拆分到每一帧不同的<code>task</code>中，<code>JS脚本</code>执行时间大体在<code>5ms</code>左右，这样浏览器就有剩余时间执行<strong>样式布局</strong>和<strong>样式绘制</strong>，减少掉帧的可能性。</p>
+<p>所以，解决<code>CPU瓶颈</code>的关键是实现<code>时间切片</code>，而<code>时间切片</code>的关键是：将<strong>同步的更新</strong>变为<strong>可中断的异步更新</strong>。</p>
+<h3 id="IO的瓶颈">IO的瓶颈</h3>
+<p><code>网络延迟</code>是前端开发者无法解决的。如何在<code>网络延迟</code>客观存在的情况下，减少用户对<code>网络延迟</code>的感知？</p>
+<p><code>React</code>给出的答案是<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/concurrent-mode-intro.html#putting-research-into-production">将人机交互研究的结果整合到真实的 UI 中</a>。</p>
+<p>这里康康业界人机交互最顶尖的苹果如何处理的捏</p>
+<p>在 IOS 系统中：</p>
+<p>点击“设置”面板中的“通用”，进入“通用”界面</p>
+<p><img src="https://react.iamkasong.com/img/legacy-move.gif" srcset="/img/loading.gif" lazyload alt="ios1"></p>
+<p>作为对比，再点击“设置”面板中的“Siri 与搜索”，进入“Siri 与搜索”界面：</p>
+<p><img src="https://react.iamkasong.com/img/concurrent-mov.gif" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>能感受到两者体验上的区别么？</p>
+<p>事实上，点击“通用”后的交互是同步的，直接显示后续界面。而点击“Siri 与搜索”后的交互是异步的，需要等待请求返回后再显示后续界面。但从用户感知来看，这两者的区别微乎其微。</p>
+<p>这里的窍门在于：点击“Siri 与搜索”后，先在当前页面停留了一小段时间，这一小段时间被用来请求数据。</p>
+<p>当“这一小段时间”足够短时，用户是无感知的。如果请求时间超过一个范围，再显示<code>loading</code>的效果。</p>
+<p>试想如果我们一点击“Siri 与搜索”就显示<code>loading</code>效果，即使数据请求时间很短，<code>loading</code>效果一闪而过。用户也是可以感知到的。</p>
+<p>为此，<code>React</code>实现了<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/concurrent-mode-suspense.html">Suspense</a>功能及配套的<code>hook</code>——<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/concurrent-mode-reference.html#usedeferredvalue">useDeferredValue</a>。</p>
+<p>(这两个还没看具体怎么用 只是知道有这样一个东西)</p>
+<p>而在源码内部，为了支持这些特性，同样需要将<strong>同步的更新</strong>变为<strong>可中断的异步更新</strong>。</p>
+<h2 id="React15">React15</h2>
+<p><code>React</code>从 v15 升级到 v16 后重构了整个架构。康康 v15，看看他为什么不能满足<strong>快速响应</strong>的理念，以至于被重构。</p>
+<h3 id="React15-架构">React15 架构</h3>
+<p>React15 架构可以分为两层：</p>
+<ul>
+<li>Reconciler（协调器）—— 负责找出变化的组件</li>
+<li>Renderer（渲染器）—— 负责将变化的组件渲染到页面</li>
+</ul>
+<h3 id="Reconciler（协调器）">Reconciler（协调器）</h3>
+<p>我们知道，在<code>React</code>中可以通过<code>this.setState</code>、<code>this.forceUpdate</code>、<code>ReactDOM.render</code>等 API 触发更新。</p>
+<p>每当有更新发生时，<strong>Reconciler</strong>会做如下工作：</p>
+<ul>
+<li>调用函数组件、或 class 组件的<code>render</code>方法，将返回的 JSX 转化为虚拟 DOM</li>
+<li>将虚拟 DOM 和上次更新时的虚拟 DOM 对比</li>
+<li>通过对比找出本次更新中变化的虚拟 DOM</li>
+<li>通知<strong>Renderer</strong>将变化的虚拟 DOM 渲染到页面上</li>
+</ul>
+<h3 id="Renderer（渲染器）">Renderer（渲染器）</h3>
+<p>由于<code>React</code>支持跨平台，所以不同平台有不同的<strong>Renderer</strong>。我们前端最熟悉的是负责在浏览器环境渲染的<strong>Renderer</strong> —— <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-dom">ReactDOM</a>。</p>
+<p>除此之外，还有：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-native">ReactNative</a>渲染器，渲染 App 原生组件</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-test-renderer">ReactTest</a>渲染器，渲染出纯 Js 对象用于测试</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-art">ReactArt</a>渲染器，渲染到 Canvas, SVG 或 VML (IE8)</li>
+</ul>
+<p>在每次更新发生时，<strong>Renderer</strong>接到<strong>Reconciler</strong>通知，将变化的组件渲染在当前宿主环境。</p>
+<h2 id="React15-架构的缺点">React15 架构的缺点</h2>
+<p>在<strong>Reconciler</strong>中，<code>mount</code>的组件会调用<a target="_blank" rel="noopener" href="https://github.com/facebook/react/blob/15-stable/src/renderers/dom/shared/ReactDOMComponent.js#L498">mountComponent</a>，<code>update</code>的组件会调用<a target="_blank" rel="noopener" href="https://github.com/facebook/react/blob/15-stable/src/renderers/dom/shared/ReactDOMComponent.js#L877">updateComponent</a>。这两个方法都会递归更新子组件。</p>
+<h3 id="递归更新的缺点"><a target="_blank" rel="noopener" href="https://react.iamkasong.com/preparation/oldConstructure.html#%E9%80%92%E5%BD%92%E6%9B%B4%E6%96%B0%E7%9A%84%E7%BC%BA%E7%82%B9">#</a>递归更新的缺点</h3>
+<p>由于递归执行，所以更新一旦开始，中途就无法中断。当层级很深时，递归更新时间超过了 16ms，用户交互就会卡顿。</p>
+<p>刚才已经提出了解决办法——用<strong>可中断的异步更新</strong>代替<strong>同步的更新</strong>。那么 React15 的架构支持异步更新么？</p>
+<p><img src="https://react.iamkasong.com/img/v15.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>我们可以看到，<strong>Reconciler</strong>和<strong>Renderer</strong>是交替工作的，当第一个<code>li</code>在页面上已经变化后，第二个<code>li</code>再进入<strong>Reconciler</strong>。</p>
+<p>由于整个过程都是同步的，所以在用户看来所有 DOM 是同时更新的。</p>
+<p>让我来试试，模拟一下，如果中途中断更新会怎么样？</p>
+<p><img src="https://react.iamkasong.com/img/dist.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>当第一个<code>li</code>完成更新时中断更新，即步骤 3 完成后中断更新，此时后面的步骤都还未执行。</p>
+<p>用户本来期望<code>123</code>变为<code>246</code>。实际却看见更新不完全的 DOM！（即<code>223</code>）</p>
+<p>基于这个原因，<code>React</code>决定重写整个架构。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>React技术揭秘——理念</div>
+      <div>http://example.com/2024/10/06/React-底层/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 6, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/02/2024%E5%89%8D%E7%AB%AF%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9C%BA%E8%AF%95/" title="2024年前端组第一次机试题目">
+                        <span class="hidden-mobile">2024年前端组第一次机试题目</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
