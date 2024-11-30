@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://react.iamkasong.com/img/process.png">
 <meta property="og:image" content="https://react.iamkasong.com/img/fiber.png">
 <meta property="article:published_time" content="2024-10-26T11:01:02.000Z">
-<meta property="article:modified_time" content="2024-10-28T09:28:35.534Z">
+<meta property="article:modified_time" content="2024-10-29T02:13:42.502Z">
 <meta property="article:author" content="Shanyujia">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://react.iamkasong.com/img/process.png">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k words
+          3.1k words
         
       </span>
     
@@ -422,6 +422,10 @@
 <p>在2020年5月，调度优先级策略经历了比较大的重构。以<code>expirationTime</code>属性为代表的优先级模型被<code>lane</code>取代。可以看看<a target="_blank" rel="noopener" href="https://github.com/facebook/react/pull/18796">这个PR</a></p>
 <p>那么<code>Fiber树</code>和页面呈现的<code>DOM树</code>有什么关系，<code>React</code>又是如何更新<code>DOM</code>的呢？</p>
 <p>且听下回分解！ （写不动了）🥱</p>
+<h2 id="复活！-补上">复活！ 补上</h2>
+<p>我们现在知道了Fiber是什么，知道Fiber节点可以保存对应的DOM节点。<br>
+相应的，Fiber节点构成的Fiber树就对应DOM树。<br>
+那么如何更新DOM呢？这需要用到被称为“双缓存”的技术。</p>
 
                 
               </div>
@@ -483,6 +487,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/11/29/TCP-1/" title="TCP-1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">TCP-1</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
