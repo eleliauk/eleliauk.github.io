@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/about.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Shanyujia">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="深入理解Promise 一位高端的前端攻城狮曾经说过，一位不愿意透露姓名的顶级摸鱼工程师曾经说过，学习 Promise 最好的方式就是先阅读它的规范定义。那么哪里可以找到 Promise 的标准定义呢？ 答案是 Promises&#x2F;A+ 规范。 假设你已经打开了上述的规范定义的页面并尝试开始阅读（不要因为是英文的就偷偷关掉，相信自己，你可以的），规范在开篇描述了 Promise 的定义，与之交互的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解promise">
+<meta property="og:url" content="http://example.com/2025/02/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3promise/index.html">
+<meta property="og:site_name" content="Shanyujia&#39;s Blog">
+<meta property="og:description" content="深入理解Promise 一位高端的前端攻城狮曾经说过，一位不愿意透露姓名的顶级摸鱼工程师曾经说过，学习 Promise 最好的方式就是先阅读它的规范定义。那么哪里可以找到 Promise 的标准定义呢？ 答案是 Promises&#x2F;A+ 规范。 假设你已经打开了上述的规范定义的页面并尝试开始阅读（不要因为是英文的就偷偷关掉，相信自己，你可以的），规范在开篇描述了 Promise 的定义，与之交互的方">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://camo.githubusercontent.com/273d06b169aae8c02aae623d6514ca18fe74682512c24461b3c20e1387f4ecf1/68747470733a2f2f70332d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f32333836616265663662326634336638623739663133353765663661363637377e74706c762d6b3375316662706663702d7a6f6f6d2d312e696d616765">
+<meta property="og:image" content="https://camo.githubusercontent.com/255a484d55fbcf1119ce1afb11e8e9558b7eaeaab4d60399f212a4b0d4ca055d/68747470733a2f2f70332d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f65666664623534323937633434313038616337323535656435346239656631367e74706c762d6b3375316662706663702d77617465726d61726b2e696d616765">
+<meta property="article:published_time" content="2025-02-25T12:29:53.000Z">
+<meta property="article:modified_time" content="2025-02-26T12:00:53.446Z">
+<meta property="article:author" content="Shanyujia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/273d06b169aae8c02aae623d6514ca18fe74682512c24461b3c20e1387f4ecf1/68747470733a2f2f70332d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f32333836616265663662326634336638623739663133353765663661363637377e74706c762d6b3375316662706663702d7a6f6f6d2d312e696d616765">
+  
+  
+  
+  <title>深入理解promise - Shanyujia&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shanyujia&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>历史</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="深入理解promise"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-25 20:29" pubdate>
+          February 25, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">深入理解promise</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>深入理解Promise</h1>
+<p>一位高端的前端攻城狮曾经说过，一位不愿意透露姓名的顶级摸鱼工程师曾经说过，<strong>学习 Promise 最好的方式就是先阅读它的规范定义</strong>。那么哪里可以找到 Promise 的标准定义呢？</p>
+<p>答案是 <a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promises/A+ 规范</a>。</p>
+<p>假设你已经打开了上述的规范定义的页面并尝试开始阅读（不要因为是英文的就偷偷关掉，相信自己，你可以的），规范在开篇描述了 Promise 的定义，与之交互的方法，然后强调了规范的稳定性。关于稳定性，换言之就是：我们可能会修订这份规范，但是保证改动微小且向下兼容，所以放心地学吧，这就是权威标准，五十年之后你再去谷歌 Promise，出来的规范还是这篇 😂。</p>
+<p>好的，让我们回到规范。从开篇的介绍看，到底什么是 Promise ？</p>
+<blockquote>
+<p>A promise represents the eventual result of an asynchronous operation.</p>
+</blockquote>
+<p><strong>Promise就是表示一个异步操作的最终结果</strong></p>
+<p>划重点！！这里其实引出了 JavaScript 引入 Promise 的动机：<strong>异步</strong>。</p>
+<p>学习一门新技术，最好的方式是先了解它是如何诞生的，以及它所解决的问题是什么。Promise 跟我们说的异步编程有什么联系呢？Promise 到底解决了什么问题？</p>
+<p>要回答这些问题，我们需要先回顾下没有 Promise 之前，异步编程存在什么问题？</p>
+<h2 id="异步编程">异步编程</h2>
+<p>由于web是单线程的架构，决定了javascript的异步编程模型是基于<strong>消息队列</strong>和<strong>事件循环</strong></p>
+<p>看图说话</p>
+<p><img src="https://camo.githubusercontent.com/273d06b169aae8c02aae623d6514ca18fe74682512c24461b3c20e1387f4ecf1/68747470733a2f2f70332d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f32333836616265663662326634336638623739663133353765663661363637377e74706c762d6b3375316662706663702d7a6f6f6d2d312e696d616765" srcset="/img/loading.gif" lazyload alt="渲染进程"></p>
+<p>我们的异步任务的回调函数会被放入消息队列，然后等待主线程上的同步任务执行完成，执行栈为空时，由事件循环机制调度进执行栈继续执行。</p>
+<p>这导致了 JavaScript 异步编程的一大特点：<strong>异步回调</strong>，比如网络请求，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 成功的异步回调函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-params">response</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(response);<br>&#125;<br><span class="hljs-comment">// 失败的异步回调函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">reject</span>(<span class="hljs-params">error</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error);<br>&#125;<br><br><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();<br><br>xhr.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(xhr.<span class="hljs-property">response</span>);<br>xhr.<span class="hljs-property">ontimeout</span> = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> <span class="hljs-title function_">reject</span>(e);<br>xhr.<span class="hljs-property">onerror</span> = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> <span class="hljs-title function_">reject</span>(e);<br><br>xhr.<span class="hljs-title function_">open</span>(<span class="hljs-string">&quot;Get&quot;</span>, <span class="hljs-string">&quot;http://xxx&quot;</span>);<br>xhr.<span class="hljs-title function_">send</span>();<br></code></pre></td></tr></table></figure>
+<p>虽然可以通过简单的封装使得异步回调的方式变得优雅一些，比如，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">$.<span class="hljs-title function_">ajax</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;https://xxx&quot;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;GET&quot;</span>,<br>  <span class="hljs-attr">fail</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>但是仍然没有办法解决业务复杂后的“回调地狱”的问题，比如多个依赖请求，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">$.<span class="hljs-title function_">ajax</span>(&#123;<br>  <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res1</span>) &#123;<br>    $.<span class="hljs-title function_">ajax</span>(&#123;<br>      <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res2</span>) &#123;<br>        $.<span class="hljs-title function_">ajax</span>(&#123;<br>          <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res3</span>) &#123;<br>            <span class="hljs-comment">// do something...</span><br>          &#125;,<br>        &#125;);<br>      &#125;,<br>    &#125;);<br>  &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>这种线性的嵌套回调使得异步代码变得难以理解和维护，也给人很大的心智负担。<br>
+所以我们需要一种技术，来解决<strong>异步编程风格的问题</strong>，这就是 Promise 的动机。</p>
+<p>了解 Promise 背景和动机有利于我们理解规范，现在让我们重新回到规范的定义</p>
+<h2 id="规范">规范</h2>
+<p>Promise A+ 规范首先定义了 Promise 的一些相关术语和状态。</p>
+<h3 id="Terminology，术语">Terminology，术语</h3>
+<ol>
+<li>“promise” ，一个拥有 <code>then</code> 方法的对象或函数，其行为符合本规范</li>
+<li>“thenable”，一个定义了 <code>then</code> 方法的对象或函数</li>
+<li>“value”，任何 JavaScript 合法值（包括 <code>undefined</code>， <code>thenable</code> 和 <code>promise</code>）</li>
+<li>“exception”，使用 <code>throw</code> 语句抛出的一个值</li>
+<li>“reason”，表示一个 <code>promise</code> 的拒绝原因</li>
+</ol>
+<h3 id="State，状态">State，状态</h3>
+<p>promise 的当前状态必须为以下三种状态之一：<code>Pending</code>， <code>Fulfilled</code> ， <code>Rejected</code></p>
+<ul>
+<li>处于 Pending 时，promise 可以迁移至 Fullfilled 或 Rejected</li>
+<li>处于 Fulfilled 时，promise 必须拥有一个不可变的终值且不能迁移至其他状态</li>
+<li>处于 Rejected 时，promise 必须拥有一个不可变的拒绝原因且不能迁移至其他状态</li>
+</ul>
+<p>所以 Promise 内部其实维护了一个类似下图所示的状态机</p>
+<p><img src="https://camo.githubusercontent.com/255a484d55fbcf1119ce1afb11e8e9558b7eaeaab4d60399f212a4b0d4ca055d/68747470733a2f2f70332d6a75656a696e2e62797465696d672e636f6d2f746f732d636e2d692d6b3375316662706663702f65666664623534323937633434313038616337323535656435346239656631367e74706c762d6b3375316662706663702d77617465726d61726b2e696d616765" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>Promise 在创建时处于 Pending（等待态），之后可以变为 Fulfilled（执行态）或者 Rejected（拒绝态），一个承诺要么被兑现，要么被拒绝，这一过程是不可逆的。</p>
+<p>定义了相关的术语和状态后，是对 <code>then</code> 方法执行过程的详细描述。</p>
+<h3 id="Then">Then</h3>
+<p>一个 promise 必须提供一个 <code>then</code> 方法以访问其当前值、终值和拒绝原因。</p>
+<p><code>then</code> 方法接受两个参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">promise.<span class="hljs-title function_">then</span>(onFulfilled, onRejected);<br></code></pre></td></tr></table></figure>
+<ul>
+<li>onFulfilled，在 promise 执行结束后调用，第一个参数为 promise 的终值</li>
+<li>onRejected，在 promise 被拒绝执行后调用，第一个参数为 promise 的拒绝原因</li>
+</ul>
+<p>对于这两个回调参数和 <code>then</code> 的调用及返回值，有如下的一些规则，</p>
+<ol>
+<li>onFulfilled 和 onRejected 都是可选参数。</li>
+<li>onFulfilled 和 onRejected 必须作为函数被调用，调用的 <code>this</code> 应用默认绑定规则，也就是在严格环境下，<code>this</code> 等于 <code>undefined</code>，非严格模式下是全局对象（浏览器中就是 <code>window</code>）。关于 <code>this</code> 的绑定规则如果不了解的可以参考我之前的一篇文章 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904182814621709">《可能是最好的 this 解析了…》</a>，里面有非常详细地介绍。</li>
+<li>onFulfilled 和 onRejected 只有在执行环境堆栈仅包含平台代码时才可被调用。由于 promise 的实施代码本身就是平台代码（JavaScript），这个规则可以这么理解：就是要确保这两个回调在 then 方法被调用的那一轮事件循环之后异步执行。这不就是微任务的执行顺序吗？所以 promise 的实现原理是基于微任务队列的。</li>
+<li><code>then</code> 方法可以被同一个 promise 调用多次，而且所有的成功或拒绝的回调需按照其注册顺序依次回调。所以 promise 的实现需要支持链式调用，可以先想一下怎么支持链式调用，稍后我们会有对应的实现。</li>
+<li><code>then</code> 方法必须返回一个 promise 对象。</li>
+</ol>
+<p>针对第 5 点，还有如下几条扩展定义，我们将返回值与 promise 的解决过程结合起来，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">promise2 = promise1.<span class="hljs-title function_">then</span>(onFulfilled, onRejected);<br></code></pre></td></tr></table></figure>
+<p><code>then</code> 的两个回调参数可能会抛出异常或返回一个值，</p>
+<p>5.1 如果 onFulfilled 或者 onRejected 抛出一个异常 <code>e</code>，那么返回的 promise2 必须拒绝执行，并返回拒绝的原因 <code>e</code>。</p>
+<p>5.2 如果 onFulfilled 或者 onRejected 返回了一个值 <code>x</code>，会执行 promise 的解决过程</p>
+<ul>
+<li>如果 <code>x</code> 和返回的 promise2 相等，也就是 promise2 和 <code>x</code> 指向同一对象时，以 <code>TypeError</code> 作为拒绝的原因拒绝执行 promise2</li>
+<li>如果 <code>x</code> 是 promise，会判断 <code>x</code> 的状态。如果是等待态，保持；如果是执行态，用相同的值执行 promise2；如果是拒绝态，用相同的拒绝原因拒绝 promise2</li>
+<li>如果 <code>x</code> 是对象或者函数，将 <code>x.then</code> 赋值给 <code>then</code>；如果取 <code>x.then</code> 的值时抛出错误 <code>e</code> ，则以 <code>e</code> 为拒绝原因拒绝 promise2。如果 <code>then</code> 是函数，将 <code>x</code> 作为函数的 <code>this</code>，并传递两个回调函数 resolvePromise, rejectPromise 作为参数调用函数</li>
+</ul>
+<p>读到这里，相信你跟我一样已经迫不及待想要实现一个 Promise 了，既然了解了原理和定义，我们就来手写一个 Promise 吧。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PENDING</span> = <span class="hljs-string">&quot;PENDING&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">FULFILLED</span> = <span class="hljs-string">&quot;FULFILLED&quot;</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">REJECTED</span> = <span class="hljs-string">&quot;REJECTED&quot;</span>;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> value;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">reject</span>(<span class="hljs-params">err</span>) &#123;<br>  <span class="hljs-keyword">throw</span> err;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">resolvePromise</span>(<span class="hljs-params">promise2, x, resolve, reject</span>) &#123;<br>  <span class="hljs-keyword">if</span> (promise2 === x) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(<br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&quot;Chaining cycle detected for promise #&lt;Promise&gt;&quot;</span>)<br>    );<br>  &#125;<br>  <span class="hljs-keyword">let</span> called;<br>  <span class="hljs-keyword">if</span> ((<span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&quot;object&quot;</span> &amp;&amp; x != <span class="hljs-literal">null</span>) || <span class="hljs-keyword">typeof</span> x === <span class="hljs-string">&quot;function&quot;</span>) &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">let</span> then = x.<span class="hljs-property">then</span>;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> then === <span class="hljs-string">&quot;function&quot;</span>) &#123;<br>        then.<span class="hljs-title function_">call</span>(<br>          x,<br>          <span class="hljs-function">(<span class="hljs-params">y</span>) =&gt;</span> &#123;<br>            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;<br>            called = <span class="hljs-literal">true</span>;<br>            <span class="hljs-title function_">resolvePromise</span>(promise2, y, resolve, reject);<br>          &#125;,<br>          <span class="hljs-function">(<span class="hljs-params">r</span>) =&gt;</span> &#123;<br>            <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;<br>            called = <span class="hljs-literal">true</span>;<br>            <span class="hljs-title function_">reject</span>(r);<br>          &#125;<br>        );<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-title function_">resolve</span>(x);<br>      &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>      <span class="hljs-keyword">if</span> (called) <span class="hljs-keyword">return</span>;<br>      called = <span class="hljs-literal">true</span>;<br>      <span class="hljs-title function_">reject</span>(e);<br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_">resolve</span>(x);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Promise</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">executor</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = <span class="hljs-variable constant_">PENDING</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = <span class="hljs-literal">undefined</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">reason</span> = <span class="hljs-literal">undefined</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resolveCallbacks</span> = [];<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">rejectCallbacks</span> = [];<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-title function_">resolve</span> = (<span class="hljs-params">value</span>) =&gt; &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-variable constant_">PENDING</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = <span class="hljs-variable constant_">FULFILLED</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">resolveCallbacks</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">fn</span>) =&gt;</span> <span class="hljs-title function_">fn</span>());<br>      &#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-title function_">reject</span> = (<span class="hljs-params">reason</span>) =&gt; &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-variable constant_">PENDING</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = <span class="hljs-variable constant_">REJECTED</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">reason</span> = reason;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">rejectCallbacks</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">fn</span>) =&gt;</span> <span class="hljs-title function_">fn</span>());<br>      &#125;<br>    &#125;;<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-title function_">executor</span>(resolve, reject);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>      <span class="hljs-title function_">reject</span>(error);<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-title function_">then</span>(<span class="hljs-params">onFulfilled, onRejected</span>) &#123;<br>    onFulfilled = <span class="hljs-keyword">typeof</span> onFulfilled === <span class="hljs-string">&quot;function&quot;</span> ? onFulfilled : resolve;<br>    onRejected = <span class="hljs-keyword">typeof</span> onRejected === <span class="hljs-string">&quot;function&quot;</span> ? onRejected : reject;<br>    <span class="hljs-keyword">let</span> promise2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-variable constant_">FULFILLED</span>) &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">let</span> x = <span class="hljs-title function_">onFulfilled</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>);<br>            <span class="hljs-title function_">resolvePromise</span>(promise2, x, resolve, reject);<br>          &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>            <span class="hljs-title function_">reject</span>(e);<br>          &#125;<br>        &#125;, <span class="hljs-number">0</span>);<br>      &#125;<br><br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-variable constant_">REJECTED</span>) &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">let</span> x = <span class="hljs-title function_">onRejected</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">reason</span>);<br>            <span class="hljs-title function_">resolvePromise</span>(promise2, x, resolve, reject);<br>          &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>            <span class="hljs-title function_">reject</span>(e);<br>          &#125;<br>        &#125;, <span class="hljs-number">0</span>);<br>      &#125;<br><br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> === <span class="hljs-variable constant_">PENDING</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">resolveCallbacks</span>.<span class="hljs-title function_">push</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>              <span class="hljs-keyword">let</span> x = <span class="hljs-title function_">onFulfilled</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>);<br>              <span class="hljs-title function_">resolvePromise</span>(promise2, x, resolve, reject);<br>            &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>              <span class="hljs-title function_">reject</span>(e);<br>            &#125;<br>          &#125;, <span class="hljs-number">0</span>);<br>        &#125;);<br><br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">rejectCallbacks</span>.<span class="hljs-title function_">push</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>              <span class="hljs-keyword">let</span> x = <span class="hljs-title function_">onRejected</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">reason</span>);<br>              <span class="hljs-title function_">resolvePromise</span>(promise2, x, resolve, reject);<br>            &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>              <span class="hljs-title function_">reject</span>(e);<br>            &#125;<br>          &#125;, <span class="hljs-number">0</span>);<br>        &#125;);<br>      &#125;<br>    &#125;);<br><br>    <span class="hljs-keyword">return</span> promise2;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>深入理解promise</div>
+      <div>http://example.com/2025/02/25/深入理解promise/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Shanyujia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>February 25, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/19/CSS%E4%B8%96%E7%95%8C/" title="CSS世界">
+                        <span class="hidden-mobile">CSS世界</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

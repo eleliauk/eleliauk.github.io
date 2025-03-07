@@ -16,21 +16,21 @@
   <meta name="author" content="Shanyujia">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Javascript-class类 类的定义 有两个组成部分 类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
+    <meta name="description" content="一些基础概念 一些零碎的知识点吧  div 块级元素 span 内联元素 声明块  1234&#123; height: 99px; color: transparent;&#125;  规则&#x2F;规则集 选择器+声明块  1234.vocabulary &#123; height: 99px; color: transparent;&#125;  选择器 选择器是用来瞄准目标元素的东西，例如，上面的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript-class类">
-<meta property="og:url" content="http://example.com/2023/12/16/Javascript-class%E7%B1%BB/index.html">
+<meta property="og:title" content="CSS世界">
+<meta property="og:url" content="http://example.com/2025/01/19/CSS%E4%B8%96%E7%95%8C/index.html">
 <meta property="og:site_name" content="Shanyujia&#39;s Blog">
-<meta property="og:description" content="Javascript-class类 类的定义 有两个组成部分 类表达式和类声明 每个类中包含了一个特殊的方法 constructor()，它是类的构造函数，这种方法用于创建和初始化一个由 class 创建的对象 12345678910111213141516&#x2F;&#x2F;类声明class A &#123;constructor(name,age)    &#123;    this.name&#x3D;name;">
+<meta property="og:description" content="一些基础概念 一些零碎的知识点吧  div 块级元素 span 内联元素 声明块  1234&#123; height: 99px; color: transparent;&#125;  规则&#x2F;规则集 选择器+声明块  1234.vocabulary &#123; height: 99px; color: transparent;&#125;  选择器 选择器是用来瞄准目标元素的东西，例如，上面的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-12-16T13:23:46.000Z">
-<meta property="article:modified_time" content="2024-03-22T17:07:18.042Z">
+<meta property="article:published_time" content="2025-01-19T09:59:40.000Z">
+<meta property="article:modified_time" content="2025-01-19T10:21:29.544Z">
 <meta property="article:author" content="Shanyujia">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Javascript-class类 - Shanyujia&#39;s Blog</title>
+  <title>CSS世界 - Shanyujia&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Javascript-class类"></span>
+            <span id="subtitle" data-typed-text="CSS世界"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-16 21:23" pubdate>
-          December 16, 2023 pm
+        <time datetime="2025-01-19 17:59" pubdate>
+          January 19, 2025 pm
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          342 words
+          866 words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          3 mins
+          8 mins
         
       </span>
     
@@ -267,27 +267,79 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Javascript-class类</h1>
+            <h1 id="seo-header">CSS世界</h1>
             
             
               <div class="markdown-body">
                 
-                <h1><code>Javascript</code>-class类</h1>
-<h3 id="类的定义">类的定义</h3>
-<p>有两个组成部分</p>
-<p>类表达式和类声明</p>
-<p>每个类中包含了一个特殊的方法 <code>constructor()</code>，它是类的构造函数，这种方法用于创建和初始化一个由 <code>class</code> 创建的对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//类声明</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br><span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>    &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age;<br>    &#125;<br>&#125;<br><span class="hljs-comment">//类表达式</span><br><span class="hljs-keyword">const</span> B=<span class="hljs-keyword">class</span>&#123;<br><span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>    &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>以上创造了一个类  叫<code>A</code></p>
-<p>初始化了两个参数 <code>name , age</code></p>
-<h3 id="使用类">使用类</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a1=<span class="hljs-keyword">new</span> A (<span class="hljs-string">&#x27;shanyujia&#x27;</span>,<span class="hljs-number">18</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a1)<br><span class="hljs-comment">// =&gt;&#123; name: &#x27;shanyujia&#x27;, age: 18 &#125;</span><br></code></pre></td></tr></table></figure>
-<p>基于这个类去创造这个类的实例</p>
-<p>基于这个对象生成 结构相同 内部数据不同的对象形式</p>
-<h3 id="自定义方法">自定义方法</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age</span>)<br>      &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>=name;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">age</span>=age;<br>      &#125;<br>    <span class="hljs-title function_">introduce</span>(<span class="hljs-params"></span>)&#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`我的名字是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.name&#125;</span>,我的年龄是<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>.age&#125;</span> `</span>)<br>    &#125;<br>&#125;<br>a1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">// =&gt; 我的名字是shanyujia,我的年龄是18</span><br></code></pre></td></tr></table></figure>
-<h3 id="类的继承">类的继承</h3>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">A</span>&#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name,age,sex</span>)&#123;<br>        <span class="hljs-comment">//如果希望继承A的属性 写一个super的调用</span><br>        <span class="hljs-comment">//调用父类的constructor 将属性也在B类生成</span><br>    <span class="hljs-variable language_">super</span>(name,age)<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">sex</span>=sex<br>    &#125;<br>    <span class="hljs-title function_">sayHello</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;你好我是&#x27;</span>+<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)<br>    &#125;<br>&#125;<br><span class="hljs-keyword">const</span> b1=<span class="hljs-keyword">new</span> <span class="hljs-title function_">B</span>(<span class="hljs-string">&#x27;张三&#x27;</span>,<span class="hljs-number">20</span>,<span class="hljs-string">&#x27;男&#x27;</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b1)<br>b1.<span class="hljs-title function_">sayHello</span>()<br>b1.<span class="hljs-title function_">introduce</span>()<br><span class="hljs-comment">/*&#123; name: &#x27;张三&#x27;, age: 20, sex: &#x27;男&#x27; &#125;</span><br><span class="hljs-comment">我的名字是张三,我的年龄是20</span><br><span class="hljs-comment">你好我是张三*/</span><br></code></pre></td></tr></table></figure>
+                <h1>一些基础概念</h1>
+<h2 id="一些零碎的知识点吧">一些零碎的知识点吧</h2>
+<ol>
+<li>div 块级元素<br>
+span 内联元素</li>
+<li>声明块</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">&#123;<br> <span class="hljs-attribute">height</span>: <span class="hljs-number">99px</span>;<br> <span class="hljs-attribute">color</span>: transparent;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>规则/规则集<br>
+选择器+声明块</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.vocabulary</span> &#123;<br> <span class="hljs-attribute">height</span>: <span class="hljs-number">99px</span>;<br> <span class="hljs-attribute">color</span>: transparent;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li>选择器<br>
+选择器是用来瞄准目标元素的东西，例如，上面的.vocabulary 就是一个选择器。</li>
+</ol>
+<ul>
+<li>类选择器：指以“.”这个点号开头的选择器。很多元素可以应用同一个类选择器。“类”，<br>
+天生就是被公用的命。</li>
+<li>ID 选择器：“#”打头，权重相当高。ID 一般指向唯一元素。但是，在 CSS 中，ID<br>
+样式出现在多个不同的元素上并不会只渲染第一个，而是雨露均沾。但显然不推荐<br>
+这么做。</li>
+<li>属性选择器：指含有[]的选择器，形如[title]{}、[title= “css-world”]{}、<br>
+[title~=“css-world”]{}、[title^= “css-world”]{}和[title$=“cssworld”]{}等。</li>
+<li>伪类选择器：一般指前面有个英文冒号（:）的选择器，如:first-child 或:lastchild 等。</li>
+<li>伪元素选择器：就是有连续两个冒号的选择器，如::first-line::firstletter、::before 和::after。</li>
+</ul>
+<ol start="5">
+<li>关系选择器<br>
+关系选择器是指根据与其他元素的关系选择元素的选择器，常见的符号有空格、&gt;、~，还<br>
+有+等，这些都是非常常用的选择器</li>
+</ol>
+<ul>
+<li>后代选择器：选择所有合乎规则的后代元素。空格连接。</li>
+<li>相邻后代选择器：仅仅选择合乎规则的儿子元素，孙子、重孙元素忽略，因此又称“子<br>
+选择器”。&gt;连接。适用于 IE7 以上版本。</li>
+<li>兄弟选择器：选择当前元素后面的所有合乎规则的兄弟元素。~连接。适用于 IE7 以上<br>
+版本。</li>
+<li>相邻兄弟选择器：仅仅选择当前元素相邻的那个合乎规则的兄弟元素。+连接。适用于<br>
+IE7 以上版本。</li>
+</ul>
+<ol start="6">
+<li>@规则<br>
+@规则指的是以@字符开始的一些规则，像<code>@media、@font-face、@page </code>或者<code>@support</code>，<br>
+诸如此类</li>
+</ol>
+<h2 id="未定义行为">未定义行为</h2>
+<p>我们的firefox可能在日常开发中出现一些很神秘的bug<br>
+此时遇到的表现差异并不是浏览器的 bug，用计算机领域的专业术语描述应该是“未定义行为”（undefined behavior）。<br>
+举个🌰<br>
+伪类元素中 比较常用的就是 :active<br>
+通用情况下，:active 的表现都是符合预期的，但是，当遭遇其他一些处理的时候，事情<br>
+就会变得不一样，让我们来看看到底是什么情况捏<br>
+假设我们现在有一个<a>标签模拟的按钮<br>
+css如下</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:active</span> &#123; <span class="hljs-attribute">background-color</span>: red; &#125; <br></code></pre></td></tr></table></figure>
+<p>假设我们的此按钮的 DOM 对象变量名为 button，js代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mousedown&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123; <br>    <span class="hljs-comment">//此处省略 N 行</span><br>    event.<span class="hljs-title function_">preventDefault</span>();<br>&#125;)<br></code></pre></td></tr></table></figure>
+<p>你会发现这不就是一个取消了默认事件吗<br>
+能有什么情况<br>
+最后却发生了意想不到的情况：Firefox 浏览器的:active 阵<br>
+亡了，鼠标按下去没有 UI 变化，按钮背景没有变红！其他所有浏览器，如 IE 和 Chrome 浏览<br>
+器，:active 正常变红，符合预期<br>
+这里，Firefox 和 IE/Chrome 浏览器表现不一样，这是 Firefox 浏览器的 bug 吗？这可不是<br>
+bug，而是因为规范上并没有对这种场景的具体描述，所以 Firefox 认为:active 发生在<br>
+mousedown 事件之后，你也不能说它什么，对吧？<br>
+像这种规范顾及不到的细枝末节的实现，就称为 <em>未定义行为</em>。</p>
 
                 
               </div>
@@ -295,27 +347,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Javascript/" class="category-chain-item">Javascript</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -326,8 +357,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Javascript-class类</div>
-      <div>http://example.com/2023/12/16/Javascript-class类/</div>
+      <div>CSS世界</div>
+      <div>http://example.com/2025/01/19/CSS世界/</div>
     </div>
     <div class="license-meta">
       
@@ -339,7 +370,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>December 16, 2023</div>
+          <div>January 19, 2025</div>
         </div>
       
       
@@ -371,9 +402,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/17/2024-02-17-%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E5%85%A8%E9%93%BE%E8%B7%AF%E5%88%86%E6%9E%90/" title="输入url到页面渲染全链路分析">
+                      <a href="/2025/02/25/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3promise/" title="深入理解promise">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">输入url到页面渲染全链路分析</span>
+                        <span class="hidden-mobile">深入理解promise</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -381,8 +412,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/09/Javascript-%E5%87%BD%E6%95%B0/" title="Javascript 函数">
-                        <span class="hidden-mobile">Javascript 函数</span>
+                      <a href="/2025/01/17/React%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" title="React组件通信">
+                        <span class="hidden-mobile">React组件通信</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
